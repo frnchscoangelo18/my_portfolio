@@ -9,6 +9,7 @@ export function Experience() {
       date: "July 2026 - Present",
       description: "Providing technical support and troubleshooting network issues for clients.",
     },
+    
   ];
 
   return (
@@ -34,7 +35,9 @@ export function Experience() {
                 </div>
                 
                 {/* Timeline Card */}
-                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-card border border-border/50 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/50 transition-all">
+                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white/5 dark:bg-slate-900/10 backdrop-blur-3xl border border-white/20 dark:border-white/10 p-6 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:shadow-xl hover:border-primary/50 dark:hover:border-primary/50 transition-all group relative overflow-hidden">
+                  {/* Decorative glowing orb */}
+                  <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none"></div>
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-2">
                     <h3 className="font-bold text-lg text-foreground">{exp.role}</h3>
                     <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full whitespace-nowrap">

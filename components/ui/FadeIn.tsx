@@ -8,9 +8,10 @@ interface FadeInProps {
   delay?: number;
   direction?: "up" | "down" | "left" | "right" | "none";
   fullWidth?: boolean;
+  className?: string;
 }
 
-export function FadeIn({ children, delay = 0, direction = "up", fullWidth = false }: FadeInProps) {
+export function FadeIn({ children, delay = 0, direction = "up", fullWidth = false, className = "" }: FadeInProps) {
   const directions = {
     up: { y: 40, x: 0 },
     down: { y: -40, x: 0 },
@@ -25,7 +26,7 @@ export function FadeIn({ children, delay = 0, direction = "up", fullWidth = fals
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.7, delay, ease: "easeOut" }}
-      className={fullWidth ? "w-full" : ""}
+      className={`${fullWidth ? "w-full" : ""} ${className}`}
     >
       {children}
     </motion.div>

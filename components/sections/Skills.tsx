@@ -1,70 +1,79 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { FadeIn } from "../ui/FadeIn";
 
 export function Skills() {
-  const skillCategories = [
-    {
-      title: "Frontend Development",
-      skills: [
-        { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" },
-        { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg", invertDark: true },
-        { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" },
-        { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" },
-        { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" }
-      ],
-    },
-    {
-      title: "Backend & Database",
-      skills: [
-        { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
-        { name: "SQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" }
-      ],
-    },
-    {
-      title: "Tools & Systems",
-      skills: [
-        { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" },
-        { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", invertDark: true },
-        { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" },
-        { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" }
-      ],
-    },
+  const originalSkills = [
+    { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" },
+    { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg", invertDark: true },
+    { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" },
+    { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" },
+    { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" },
+    { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
+    { name: "SQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg" },
+    { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" },
+    { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", invertDark: true },
+    { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" },
+    { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" }
   ];
 
+  // Split into two distinct rows
+  const row1Skills = originalSkills.slice(0, 6);
+  const row2Skills = originalSkills.slice(6, 12);
+
+  // Duplicate the arrays massively to ensure seamless scrolling even on ultrawide monitors
+  const MULTIPLIER = 8;
+  const marquee1 = Array(MULTIPLIER).fill(row1Skills).flat();
+  const marquee2 = Array(MULTIPLIER).fill(row2Skills).flat();
+
+  const MarqueeRow = ({ items, direction = "left", speed = 40 }: { items: any[], direction?: "left" | "right", speed?: number }) => (
+    <div 
+      className="flex w-full overflow-hidden whitespace-nowrap py-4"
+      style={{ WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
+    >
+      <motion.div
+        className="flex w-max gap-4 sm:gap-8 items-center"
+        animate={{ x: direction === "left" ? ["0%", `-${100 / MULTIPLIER}%`] : [`-${100 / MULTIPLIER}%`, "0%"] }}
+        transition={{ ease: "linear", duration: speed, repeat: Infinity }}
+      >
+        {items.map((skill, idx) => (
+          <div 
+            key={idx} 
+            className="flex items-center gap-4 px-6 py-4 rounded-2xl bg-white/5 dark:bg-slate-900/10 backdrop-blur-3xl border border-white/20 dark:border-white/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:border-primary/50 transition-colors min-w-fit group"
+          >
+            <img 
+              src={skill.icon} 
+              alt={skill.name} 
+              className={`w-10 h-10 object-contain group-hover:scale-110 transition-transform ${skill.invertDark ? 'dark:invert opacity-80' : ''}`}
+            />
+            <span className="text-xl font-bold text-foreground/80 group-hover:text-primary transition-colors">{skill.name}</span>
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+
   return (
-    <section id="skills" className="py-24">
-      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <section id="skills" className="py-24 relative overflow-hidden">
+      <div className="absolute inset-0 bg-primary/5 dark:bg-primary/5 -skew-y-3 -z-10 transform origin-bottom-left" />
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn direction="up">
           <div className="flex flex-col items-center justify-center text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Technical Skills</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Technical Stack</h2>
             <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-              A comprehensive list of technologies, languages, and tools I have experience working with throughout my academic and personal projects.
+              The ecosystem of languages, frameworks, and AI tools I use to build intelligent applications.
             </p>
           </div>
         </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {skillCategories.map((category, index) => (
-            <FadeIn key={index} direction="up" delay={0.2 + index * 0.1} fullWidth>
-              <div className="flex flex-col p-8 bg-card/50 backdrop-blur-sm border-2 border-border/50 rounded-2xl shadow-sm hover:border-primary/50 transition-colors h-full">
-                <h3 className="text-2xl font-bold mb-6 text-foreground">{category.title}</h3>
-                <div className="flex flex-wrap gap-3">
-                  {category.skills.map((skill, skillIndex) => (
-                    <span 
-                      key={skillIndex} 
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-muted/50 text-sm font-semibold text-foreground border border-border/50 hover:bg-primary/20 hover:text-primary transition-colors cursor-default shadow-sm"
-                    >
-                      <img 
-                        src={skill.icon} 
-                        alt={`${skill.name} logo`} 
-                        className={`w-5 h-5 object-contain ${skill.invertDark ? 'dark:invert' : ''}`}
-                      />
-                      {skill.name}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </FadeIn>
-          ))}
+        <div className="flex flex-col gap-6 w-full -mx-4 sm:mx-0">
+          <FadeIn direction="up" delay={0.2} fullWidth>
+            <MarqueeRow items={marquee1} direction="left" speed={35} />
+          </FadeIn>
+          <FadeIn direction="up" delay={0.3} fullWidth>
+            <MarqueeRow items={marquee2} direction="right" speed={45} />
+          </FadeIn>
         </div>
       </div>
     </section>

@@ -22,8 +22,32 @@ const pixelFont = Silkscreen({
 });
 
 export const metadata: Metadata = {
-  title: "Angeles, Franchesco | Portfolio",
-  description: "Personal portfolio website",
+  title: "Franchesco Angelo Angeles | Software Engineer",
+  description: "Portfolio of Franchesco Angelo Angeles, a Future AI & Machine Learning Engineer based in the Philippines.",
+  keywords: ["Franchesco Angelo Angeles", "Software Engineer", "AI Engineer", "Machine Learning", "Portfolio", "Web Development"],
+  authors: [{ name: "Franchesco Angelo Angeles" }],
+  openGraph: {
+    title: "Franchesco Angelo | Future AI Engineer",
+    description: "Discover my projects, skills, and experience in software engineering and AI.",
+    url: "https://franchescoangelo.com", // Replace with actual domain
+    siteName: "Franchesco Angelo Portfolio",
+    images: [
+      {
+        url: "/og-image.png", // Replace with an actual screenshot in public folder
+        width: 1200,
+        height: 630,
+        alt: "Franchesco Angelo Portfolio Preview",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Franchesco Angelo | Future AI Engineer",
+    description: "Discover my projects, skills, and experience in software engineering and AI.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
