@@ -22,6 +22,7 @@ const pixelFont = Silkscreen({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://gelskrrttsangeles.vercel.app"), 
   title: "Franchesco Angelo Angeles | Software Engineer",
   description: "Portfolio of Franchesco Angelo Angeles, a Future AI & Machine Learning Engineer based in the Philippines.",
   keywords: ["Franchesco Angelo Angeles", "Software Engineer", "AI Engineer", "Machine Learning", "Portfolio", "Web Development"],
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Franchesco Angelo Portfolio",
     description: "Discover my projects, skills, and experience in software engineering and AI.",
-    url: "https://franchescoangelo.com", // Replace with actual domain
+    url: "https://gelskrrttsangeles.vercel.app", 
     siteName: "Franchesco Angelo Portfolio",
     images: [
       {
