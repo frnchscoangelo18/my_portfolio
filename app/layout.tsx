@@ -27,13 +27,13 @@ export const metadata: Metadata = {
   keywords: ["Franchesco Angelo Angeles", "Software Engineer", "AI Engineer", "Machine Learning", "Portfolio", "Web Development"],
   authors: [{ name: "Franchesco Angelo Angeles" }],
   openGraph: {
-    title: "Franchesco Angelo | Future AI Engineer",
+    title: "Franchesco Angelo Portfolio",
     description: "Discover my projects, skills, and experience in software engineering and AI.",
     url: "https://franchescoangelo.com", // Replace with actual domain
     siteName: "Franchesco Angelo Portfolio",
     images: [
       {
-        url: "/og-image.png", // Replace with an actual screenshot in public folder
+        url: "/websitepic.png",
         width: 1200,
         height: 630,
         alt: "Franchesco Angelo Portfolio Preview",
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Franchesco Angelo | Future AI Engineer",
+    title: "Franchesco Angelo Portfolio",
     description: "Discover my projects, skills, and experience in software engineering and AI.",
-    images: ["/og-image.png"],
+    images: ["/websitepic.png"],
   },
 };
 
