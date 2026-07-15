@@ -6,7 +6,7 @@ export function About() {
     {
       icon: <GraduationCap className="h-8 w-8 text-primary" />,
       title: "Education",
-      description: "Currently pursuing a Bachelor of Science in Computer Engineering. Focusing on software development, computer architecture, and embedded systems.",
+      description: "A 3rd year Bachelor of Science in Computer Engineering at Polytechnic University of the Philippines. Pursuing a specialization in AI and Machine Learning.",
     },
     {
       icon: <Code2 className="h-8 w-8 text-primary" />,
@@ -16,7 +16,7 @@ export function About() {
     {
       icon: <Cpu className="h-8 w-8 text-primary" />,
       title: "Hardware Interest",
-      description: "Fascinated by how software interacts with hardware. Enjoy tinkering with microcontrollers and learning about lower-level systems.",
+      description: "Fascinated by how software interacts with hardware. Applying my knowledge in electrical and electronic circuits.",
     },
   ];
 
@@ -28,7 +28,8 @@ export function About() {
           <div className="flex flex-col items-center justify-center text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">About Me</h2>
             <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-              I'm a dedicated student constantly learning and building. My journey in Computer Engineering has given me a strong foundation in both software engineering and hardware integration.
+              I am a dedicated computer engineering student who never stops learning new technologies
+              and exploring oppurtunities to showcase my skills. Always eager to take on new challenges and contribute to innovative projects.
             </p>
           </div>
         </FadeIn>
@@ -36,8 +37,11 @@ export function About() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {highlights.map((item, index) => (
             <FadeIn key={index} direction="up" delay={0.2 + index * 0.1} fullWidth>
-              <div className="flex flex-col items-center text-center p-8 bg-gradient-to-br from-card via-card to-primary/5 dark:from-card dark:via-muted/30 dark:to-primary/10 border border-border/50 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 hover:border-primary/50 transition-all duration-300 h-full">
-                <div className="mb-6 p-4 bg-primary/10 rounded-2xl shadow-inner shadow-primary/20">
+              <div className="flex flex-col items-center text-center p-8 bg-white/5 dark:bg-slate-900/10 backdrop-blur-3xl border border-white/20 dark:border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:shadow-xl hover:-translate-y-1 hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300 h-full group relative overflow-hidden">
+                {/* Decorative glowing orb */}
+                <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none"></div>
+                
+                <div className="mb-6 p-4 bg-primary/10 rounded-2xl shadow-inner shadow-primary/20 relative z-10">
                   {item.icon}
                 </div>
                 <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
