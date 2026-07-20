@@ -3,26 +3,26 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #f0f9ff; /* sky-50 */
-  --foreground: #0f172a; /* slate-900 */
-  --primary: #0ea5e9; /* sky-500 */
+  --background: #fafafa; /* Very light gray/white */
+  --foreground: #09090b; /* Zinc 950 */
+  --primary: #0ea5e9; /* Sky 500 */
   --primary-foreground: #ffffff;
-  --muted: #e0f2fe; /* sky-100 */
-  --muted-foreground: #475569; /* slate-600 */
-  --border: #bae6fd; /* sky-200 */
+  --muted: #f4f4f5; /* Zinc 100 */
+  --muted-foreground: #71717a; /* Zinc 500 */
+  --border: #e4e4e7; /* Zinc 200 */
   --card: #ffffff;
-  --card-foreground: #0f172a;
+  --card-foreground: #09090b;
 }
 
 .dark {
-  --background: #020617; /* very dark slate/blue */
-  --foreground: #f8fafc; /* slate-50 */
-  --primary: #3b82f6; /* blue-500 */
-  --primary-foreground: #ffffff;
-  --muted: #0f172a; /* slate-900 */
-  --muted-foreground: #94a3b8; /* slate-400 */
-  --border: #1e293b; /* slate-800 */
-  --card: #0b1120; /* slightly lighter than background */
+  --background: #050505; /* Deep space black */
+  --foreground: #f8fafc; /* Slate 50 */
+  --primary: #38bdf8; /* Sky 400 - more vibrant */
+  --primary-foreground: #020617;
+  --muted: #171717; /* Neutral 900 */
+  --muted-foreground: #a1a1aa; /* Zinc 400 */
+  --border: #262626; /* Neutral 800 */
+  --card: #0a0a0a; /* Slightly lighter than background */
   --card-foreground: #f8fafc;
 }
 
@@ -36,8 +36,8 @@
   --color-border: var(--border);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-outfit);
   --font-pixel: var(--font-pixel);
 }
 
@@ -45,10 +45,20 @@
   font-family: var(--font-pixel);
 }
 
+.font-heading {
+  font-family: var(--font-heading);
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
+}
+
+/* Custom Selection Color */
+::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
 }
 
 /* View Transition API Circular Wipe Effect */

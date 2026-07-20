@@ -1,6 +1,7 @@
 import { ExternalLink, Code } from "lucide-react";
 import Link from "next/link";
 import { FadeIn } from "../ui/FadeIn";
+import { SpotlightCard } from "../ui/SpotlightCard";
 
 export function Projects() {
   const placeholderProjects = [
@@ -10,7 +11,7 @@ export function Projects() {
       tags: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
       github: "https://github.com/frnchscoangelo18/HEXNODE",
       demo: "https://hexnode-gamma.vercel.app",
-      image: "/hexnode.png", // Add your image path here, e.g., "/hexnode.png"
+      image: "/hexnode.png", 
     },
     {
       title: "ICPEP Booth Games 2026",
@@ -18,7 +19,7 @@ export function Projects() {
       tags: ["React", "Next.js", "TypeScript", "Tailwind CSS","Supabase"],
       github: "https://github.com/frnchscoangelo18/icpep-booth-games-2026",
       demo: "https://icpep-booth-games-2026.vercel.app",
-      image: "/icpep.png", // Add your image path here, e.g., "/icpep.png"
+      image: "/icpep.png", 
     },
     {
       title: "Dragonfly",
@@ -26,7 +27,7 @@ export function Projects() {
       tags: ["React", "Next.js", "TypeScript", "Tailwind CSS","Supabase"],
       github: "https://github.com/frnchscoangelo18/dragonfly",
       demo: "https://dragonfly-rose.vercel.app",
-      image: "/dragonfly.png", // Add your image path here, e.g., "/dragonfly.png"
+      image: "/dragonfly.png", 
     },
   ];
 
@@ -45,28 +46,25 @@ export function Projects() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
            {placeholderProjects.map((project, index) => (
             <FadeIn key={index} direction="up" delay={0.2 + index * 0.1} fullWidth>
-              <div className="flex flex-col bg-white/5 dark:bg-slate-900/10 backdrop-blur-3xl border border-white/20 dark:border-white/10 rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:shadow-xl hover:-translate-y-2 hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300 h-full group relative">
+              <SpotlightCard className="h-full flex flex-col group">
                 
-                {/* Decorative glowing orb behind the card content */}
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none"></div>
-
                 {/* Project Image Area */}
-                <div className="w-full h-52 bg-gradient-to-br from-white/10 to-transparent dark:from-white/5 dark:to-transparent border-b border-border/30 flex items-center justify-center relative overflow-hidden backdrop-blur-md z-10">
+                <div className="w-full h-52 bg-gradient-to-br from-white/10 to-transparent dark:from-white/5 dark:to-transparent border-b border-border/30 flex items-center justify-center relative overflow-hidden backdrop-blur-md">
                   <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors z-10 pointer-events-none"></div>
                   
                   {project.image ? (
                     <img 
                       src={project.image} 
                       alt={`${project.title} screenshot`}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                   ) : (
                     <span className="text-muted-foreground text-sm font-medium z-10 bg-background/30 px-4 py-2 rounded-full border border-border/50 backdrop-blur-xl">Image Placeholder</span>
                   )}
                 </div>
                 
-                <div className="flex flex-col flex-1 p-8 relative z-10">
-                  <h3 className="text-2xl font-bold mb-3 text-foreground transition-colors">
+                <div className="flex flex-col flex-1 p-8">
+                  <h3 className="text-2xl font-bold mb-3 text-foreground transition-colors group-hover:text-primary">
                     {project.title}
                   </h3>
                   <p className="text-muted-foreground text-base leading-relaxed mb-6 flex-1">
@@ -102,7 +100,7 @@ export function Projects() {
                     </Link>
                   </div>
                 </div>
-              </div>
+              </SpotlightCard>
             </FadeIn>
           ))}
         </div>

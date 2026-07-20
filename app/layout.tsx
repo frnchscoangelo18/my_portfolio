@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Silkscreen } from "next/font/google";
+import { Inter, Outfit, Silkscreen } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "../components/ui/ThemeProvider";
 import { Navbar } from "../components/ui/Navbar";
 import { Footer } from "../components/ui/Footer";
+import { SmoothScroll } from "../components/ui/SmoothScroll";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
@@ -23,7 +24,7 @@ const pixelFont = Silkscreen({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://gelskrrttsangeles.vercel.app"), 
-  title: "Franchesco Angelo Angeles | Software Engineer",
+  title: "Franchesco Angelo Angeles | Portfolio",
   description: "Portfolio of Franchesco Angelo Angeles, a Future AI & Machine Learning Engineer based in the Philippines.",
   keywords: ["Franchesco Angelo Angeles", "Software Engineer", "AI Engineer", "Machine Learning", "Portfolio", "Web Development"],
   authors: [{ name: "Franchesco Angelo Angeles" }],
@@ -57,19 +58,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
+      <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${pixelFont.variable} scroll-smooth antialiased`}
+      className={`${inter.variable} ${outfit.variable} ${pixelFont.variable} antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-background text-foreground">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <Navbar />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </ThemeProvider>
+        <SmoothScroll>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <Navbar />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </ThemeProvider>
+        </SmoothScroll>
       </body>
     </html>
   );
