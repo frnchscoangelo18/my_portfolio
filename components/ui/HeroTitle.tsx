@@ -39,7 +39,7 @@ export function HeroTitle() {
   }, [step, text1, text2, text3]);
 
   return (
-    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.3] font-pixel min-h-[140px] sm:min-h-[160px] lg:min-h-[200px]">
+    <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.3] font-pixel min-h-[120px] sm:min-h-[160px] lg:min-h-[200px]">
       {text1} <br className="hidden sm:block"/>
       <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-blue-500 to-sky-600 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500">
         {text2}
