@@ -7,10 +7,12 @@ export function Typewriter({
   text,
   delay = 0,
   speed = 50,
+  showCursor = true,
 }: {
   text: string;
   delay?: number;
   speed?: number;
+  showCursor?: boolean;
 }) {
   const [displayedText, setDisplayedText] = useState("");
   const [started, setStarted] = useState(false);
@@ -44,12 +46,14 @@ export function Typewriter({
   return (
     <span>
       {displayedText}
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ repeat: Infinity, duration: 0.8, repeatType: "reverse" }}
-        className="inline-block w-[2px] h-[1em] bg-primary ml-1 align-middle"
-      />
+      {showCursor && (
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ repeat: Infinity, duration: 0.8, repeatType: "reverse" }}
+          className="inline-block w-[2px] h-[1em] bg-primary ml-1 align-middle"
+        />
+      )}
     </span>
   );
 }
