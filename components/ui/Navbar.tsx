@@ -54,23 +54,23 @@ export function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`relative px-4 py-2 rounded-full transition-all duration-300 flex flex-col items-center justify-center ${
+                className={`relative px-4 py-2 rounded-full transition-all duration-300 flex items-center justify-center gap-1.5 ${
                   isActive 
                     ? "text-primary font-bold drop-shadow-[0_0_12px_rgba(56,189,248,0.8)] scale-105" 
                     : "text-muted-foreground hover:text-foreground hover:scale-105"
                 }`}
               >
-                <span className="relative z-10 flex items-center gap-1.5">
-                  <link.icon className="w-4 h-4" />
+                <link.icon className="w-4 h-4" />
+                <span className="relative flex items-center justify-center">
                   {link.name}
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-indicator-dot"
+                      className="absolute -bottom-[8px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(56,189,248,1)]"
+                      transition={{ type: "tween", ease: "easeInOut", duration: 0.4 }}
+                    />
+                  )}
                 </span>
-                {isActive && (
-                  <motion.div
-                    layoutId="nav-indicator-dot"
-                    className="absolute bottom-0 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_10px_rgba(56,189,248,1)]"
-                    transition={{ type: "tween", ease: "easeInOut", duration: 0.4 }}
-                  />
-                )}
               </Link>
             );
           })}
