@@ -2,14 +2,34 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+// Removed lucide-react icons for terminal snippet
 import { FadeIn } from "../ui/FadeIn";
 import { HeroTitle } from "../ui/HeroTitle";
 import { Typewriter } from "../ui/Typewriter";
-import { motion } from "framer-motion";
+import { SpotlightCard } from "../ui/SpotlightCard";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [showCV, setShowCV] = useState(false);
+
+  useEffect(() => {
+    if (showCV) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+      document.documentElement.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.documentElement.style.overflow = 'unset';
+    };
+  }, [showCV]);
+
+  const handlePictureClick = () => {
+    setShowCV(true);
+  };
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -23,20 +43,6 @@ export function Hero() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  const ActionButtons = () => (
-    <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 lg:pt-6 w-full sm:w-auto">
-      <Link href="#projects" className="inline-flex items-center justify-center rounded-full text-sm font-medium transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(14,165,233,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-primary text-primary-foreground h-12 px-8 py-2 w-full sm:w-auto overflow-hidden relative group">
-        <span className="relative z-10 flex items-center">
-          View My Work
-          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-        </span>
-        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0"></div>
-      </Link>
-      <Link href="#contact" className="inline-flex items-center justify-center rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background border border-border/50 hover:border-primary/50 hover:bg-primary/5 hover:text-primary h-12 px-8 py-2 w-full sm:w-auto">
-        Contact Me
-      </Link>
-    </div>
-  );
 
   return (
     <section id="hero" className="flex min-h-[100dvh] items-center justify-center px-4 py-16 md:py-24 relative overflow-hidden">
@@ -55,53 +61,155 @@ export function Hero() {
       
       <div className="container mx-auto max-w-6xl flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16 z-10 mt-16 md:mt-0">
         
-        {/* Left Side: Information */}
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-4 lg:gap-6 flex-1 w-full">
+        {/* Left Side: Terminal Information */}
+        <div className="flex flex-col flex-1 w-full max-w-2xl lg:max-w-none">
           <FadeIn direction="right" delay={0.1} fullWidth>
-            <HeroTitle />
-          </FadeIn>
-          
-          <FadeIn direction="right" delay={0.2} fullWidth>
-            <p className="max-w-2xl text-sm sm:text-lg text-muted-foreground leading-relaxed mt-2 lg:mt-4 h-8">
-              <Typewriter text="Future AI & Machine Learning Engineer" delay={0.8} speed={50} />
-            </p>
-          </FadeIn>
-          
-          {/* Desktop Buttons (Hidden on mobile) */}
-          <FadeIn direction="right" delay={1.5} fullWidth className="hidden lg:block w-full">
-            <ActionButtons />
+            <div className="w-full bg-[#031525]/90 dark:bg-[#020b14]/90 backdrop-blur-xl rounded-xl border border-sky-500/30 shadow-[0_0_40px_rgba(14,165,233,0.2)] overflow-hidden">
+              {/* Terminal Header */}
+              <div className="flex items-center px-4 py-3 border-b border-sky-500/20 bg-sky-900/40">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                </div>
+                <div className="mx-auto text-xs text-sky-400 font-mono tracking-wider flex items-center gap-2">
+                  <span className="opacity-50">~</span> franchesco.exe
+                </div>
+              </div>
+              
+              {/* Terminal Body */}
+              <div className="p-6 sm:p-8 lg:p-10 text-left flex flex-col gap-6">
+                
+                {/* Command 1: whoami */}
+                <div>
+                  <div className="flex items-center gap-2 text-sky-400 font-mono text-sm sm:text-base mb-3 opacity-80">
+                    <span className="text-sky-500 font-bold">C:\Users\Guest&gt;</span>
+                    <Typewriter text="who_am_i" delay={0.2} speed={40} showCursor={false} />
+                  </div>
+                  <div className="pl-4 border-l-2 border-sky-500/30 text-white drop-shadow-md">
+                    <HeroTitle />
+                  </div>
+                </div>
+
+                {/* Command 2: cat bio.txt */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 3.5 }}
+                  className="mt-2"
+                >
+                  <div className="flex items-center gap-2 text-sky-400 font-mono text-sm sm:text-base mb-3 opacity-80">
+                    <span className="text-sky-500 font-bold">C:\Users\Guest&gt;</span>
+                    <Typewriter text="python_predict_future.py" delay={3.5} speed={40} showCursor={false} />
+                  </div>
+                  <div className="pl-4 border-l-2 border-sky-500/30">
+                    <p className="text-sm sm:text-lg text-sky-100/90 leading-relaxed font-mono h-8">
+                      <Typewriter text="Future AI & Machine Learning Engineer" delay={4.2} speed={40} showCursor={false} />
+                    </p>
+                  </div>
+                </motion.div>
+                
+              </div>
+            </div>
           </FadeIn>
         </div>
 
-        {/* Right Side: Photo with Dynamic Glow */}
+        {/* Right Side: Photo */}
+        {/* Right Side: Photo */}
         <FadeIn direction="left" delay={0.3}>
-          <div className="flex-1 flex justify-center lg:justify-end w-full max-w-[280px] sm:max-w-md mx-auto lg:mx-0 relative group mt-8 lg:mt-0">
-            {/* Dynamic glow tracking mouse */}
-            <motion.div 
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full pointer-events-none mix-blend-screen"
-              animate={{
-                background: `radial-gradient(circle at ${40 + mousePosition.x * 0.2}% ${40 + mousePosition.y * 0.2}%, rgba(14, 165, 233, 0.4), transparent 70%)`
-              }}
-              transition={{ type: "tween", ease: "linear", duration: 0.1 }}
-            />
+          <div className="flex-1 flex justify-center lg:justify-end w-full max-w-[280px] sm:max-w-md mx-auto lg:mx-0 relative mt-10 lg:mt-0">
             
-            <div className="relative w-36 h-36 sm:w-64 sm:h-64 lg:w-80 lg:h-80 rounded-full border border-white/20 dark:border-white/10 shadow-2xl overflow-hidden bg-card/50 backdrop-blur-md flex flex-col items-center justify-center transition-all duration-500 group-hover:scale-105 group-hover:border-primary/50 group-hover:shadow-[0_0_40px_rgba(14,165,233,0.3)] z-10">
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent mix-blend-overlay z-10 pointer-events-none transition-opacity opacity-50 group-hover:opacity-100"></div>
-              <img 
-                src="/profile.jpg" 
-                alt="Franchesco Angelo Angeles" 
-                className="w-full h-full object-cover object-[100%_top] rounded-full relative z-0"
-              />
+            {/* Profile Picture Container */}
+            <div 
+              onClick={handlePictureClick}
+              className="relative w-52 h-52 sm:w-72 sm:h-72 lg:w-[22rem] lg:h-[22rem] flex flex-col items-center justify-center z-10 cursor-pointer"
+            >
+              {/* Glow Behind Picture */}
+              <div className="absolute inset-0 rounded-full bg-primary/20 blur-[2rem] opacity-60"></div>
+              
+              {/* Image */}
+              <div className="relative w-full h-full rounded-full overflow-hidden z-20">
+                <img 
+                  src="/profile.jpg" 
+                  alt="Franchesco Angelo Angeles" 
+                  className="w-full h-full object-cover object-[100%_top]"
+                />
+              </div>
             </div>
+
           </div>
         </FadeIn>
 
-        {/* Mobile Buttons (Hidden on desktop, shows below photo on mobile) */}
-        <FadeIn direction="up" delay={1.5} fullWidth className="lg:hidden w-full mt-4">
-          <ActionButtons />
-        </FadeIn>
-
       </div>
+
+      {/* CV Modal Pop-out */}
+      <AnimatePresence>
+        {showCV && (
+          <motion.div 
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(12px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-12 bg-background/60 overscroll-contain"
+            onClick={() => setShowCV(false)}
+          >
+            <motion.div 
+              initial={{ scale: 0.95, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.95, y: 20, opacity: 0, transition: { duration: 0.2 } }}
+              transition={{ type: "spring", damping: 30, stiffness: 300, mass: 0.8 }}
+              className="relative w-full max-w-5xl h-[85vh] lg:h-[90vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <SpotlightCard className="w-full h-full rounded-2xl sm:rounded-[2rem] overflow-hidden shadow-2xl border-white/10">
+                <div className="w-full h-full flex flex-col">
+                  {/* Elegant Header */}
+                  <div className="flex-none flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-8 lg:py-5 border-b border-border/50 bg-background/40 relative z-20 backdrop-blur-md">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-primary/10 text-primary border border-primary/20">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="sm:w-5 sm:h-5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                      </div>
+                      <h3 className="font-semibold text-base sm:text-lg lg:text-xl text-foreground tracking-tight">
+                        Curriculum Vitae
+                      </h3>
+                    </div>
+                    
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <a 
+                        href="/CV.png" 
+                        download
+                        className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 hover:bg-primary/20 border border-primary/20 text-primary text-sm font-semibold transition-colors"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download
+                      </a>
+                      <button 
+                        onClick={() => setShowCV(false)}
+                        className="p-1.5 sm:p-2 rounded-full bg-white/5 hover:bg-rose-500/10 text-muted-foreground hover:text-rose-400 border border-white/5 hover:border-rose-500/20 transition-colors group"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="sm:w-5 sm:h-5 transition-transform group-hover:scale-110"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {/* Robust Scrollable Area */}
+                  <div className="flex-1 w-full overflow-y-auto bg-zinc-950/40 relative z-10">
+                    <div className="w-full min-h-full flex justify-center items-start p-3 sm:p-6 lg:p-10">
+                      <img 
+                        src="/CV.png" 
+                        alt="Curriculum Vitae"
+                        className="w-full max-w-4xl h-auto shadow-[0_0_40px_rgba(0,0,0,0.5)] rounded-md sm:rounded-xl border border-white/10 bg-white"
+                      />
+                    </div>
+                  </div>
+
+                </div>
+              </SpotlightCard>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </section>
   );
 }
