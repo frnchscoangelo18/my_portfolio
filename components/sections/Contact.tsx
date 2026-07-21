@@ -50,20 +50,20 @@ export function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden">
+    <section id="contact" className="py-10 md:py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_100%,rgba(14,165,233,0.1),rgba(255,255,255,0))] dark:bg-[radial-gradient(ellipse_60%_60%_at_50%_100%,rgba(59,130,246,0.1),rgba(2,6,23,0))] -z-10" />
       
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
         <FadeIn direction="up">
-          <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Get In Touch</h2>
-          <p className="mt-8 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Get In Touch</h2>
+          <p className="mt-4 sm:mt-6 md:mt-8 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
             I'm currently looking for new opportunities, internships, or interesting projects to collaborate on. Whether you have a question or just want to say hi, I'll try my best to get back to you!
           </p>
 
           <div className="mt-12 flex flex-col items-center justify-center gap-10">
 
             {/* Social Links Row */}
-            <div className="flex flex-nowrap justify-center gap-2 md:gap-3 w-full max-w-full">
+            <div className="flex flex-wrap justify-center gap-3 md:gap-4 w-full max-w-full">
               {socialLinks.map((social) => (
                 <Link
                   key={social.name}

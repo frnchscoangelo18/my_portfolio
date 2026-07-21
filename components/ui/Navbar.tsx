@@ -80,47 +80,49 @@ export function Navbar() {
         </div>
       </header>
 
-      {/* Mobile Header (Standard style for mobile to save space) */}
-      <header className="md:hidden fixed top-0 w-full z-50 bg-background/80 backdrop-blur border-b border-border/50 transition-all">
-        <div className="flex items-center justify-between h-16 px-4">
-          <span className="font-pixel font-bold text-lg text-primary tracking-tight">FA.</span>
-          <div className="flex items-center gap-4">
+      {/* Mobile Floating Header */}
+      <div className="md:hidden fixed top-4 left-4 right-4 z-50">
+        <header className="flex items-center justify-between h-14 px-1 transition-all duration-300">
+          {/* Menu button on the left (replacing logo) */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="text-foreground hover:text-primary transition-colors focus:outline-none flex items-center justify-center"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+          
+          {/* Theme toggle on the right */}
+          <div className="flex items-center">
             <ThemeToggle />
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-foreground hover:text-primary transition-colors focus:outline-none"
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
           </div>
-        </div>
+        </header>
 
         {/* Mobile Menu Dropdown */}
         <div
-          className={`overflow-hidden transition-all duration-300 ease-in-out bg-background/95 backdrop-blur absolute w-full left-0 border-b border-border/50 shadow-xl ${
-            isMobileMenuOpen ? "max-h-[80vh] py-6 opacity-100" : "max-h-0 opacity-0 py-0 border-transparent"
+          className={`overflow-hidden transition-all duration-300 ease-in-out absolute top-2 left-10 w-60 rounded-2xl bg-white/10 dark:bg-black/20 backdrop-blur-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.15)] border origin-top-left ${
+            isMobileMenuOpen ? "max-h-[500px] py-4 opacity-100 border-white/20 dark:border-white/10 scale-100" : "max-h-0 opacity-0 py-0 border-transparent scale-95 pointer-events-none"
           }`}
         >
-          <nav className="flex flex-col items-center gap-2 px-6">
+          <nav className="flex flex-col gap-1 px-3">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`text-lg font-semibold transition-all w-full flex items-center justify-center gap-2 py-3 rounded-xl ${
+                className={`text-base font-medium transition-all w-full flex items-center justify-start gap-3 px-4 py-3 rounded-xl ${
                   activeSection === link.href 
                     ? "text-primary bg-primary/10 shadow-sm" 
-                    : "text-muted-foreground hover:text-foreground hover:bg-white/5 active:bg-white/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-white/5 dark:hover:bg-white/5 active:bg-white/10"
                 }`}
               >
-                <link.icon className="w-5 h-5" />
+                <link.icon className={`w-5 h-5 transition-opacity ${activeSection === link.href ? "opacity-100" : "opacity-70"}`} />
                 {link.name}
               </Link>
             ))}
           </nav>
         </div>
-      </header>
+      </div>
     </>
   );
 }

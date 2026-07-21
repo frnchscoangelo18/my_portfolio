@@ -14,12 +14,12 @@ export function Experience() {
   ];
 
   return (
-    <section id="experience" className="py-24 bg-muted/30 relative">
+    <section id="experience" className="py-10 md:py-20 bg-muted/30 relative">
       <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <FadeIn direction="up">
-          <div className="flex flex-col items-center justify-center text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Work Experience</h2>
-            <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+          <div className="flex flex-col items-center justify-center text-center mb-12">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Work Experience</h2>
+            <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
               A timeline of my professional journey, internships, and relevant work experience.
             </p>
           </div>
@@ -37,10 +37,10 @@ export function Experience() {
                 
                 {/* Timeline Card */}
                 <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)]">
-                  <SpotlightCard className="p-6">
+                  <SpotlightCard className="p-4 sm:p-6">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-2">
-                      <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">{exp.role}</h3>
-                      <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full whitespace-nowrap border border-primary/20">
+                      <h3 className="font-bold text-base sm:text-lg text-foreground group-hover:text-primary transition-colors">{exp.role}</h3>
+                      <span className="text-xs sm:text-sm font-medium text-primary bg-primary/10 px-2 sm:px-3 py-1 rounded-full whitespace-nowrap border border-primary/20">
                         {exp.date}
                       </span>
                     </div>

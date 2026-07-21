@@ -40,14 +40,14 @@ export function Skills() {
         {items.map((skill, idx) => (
           <div 
             key={idx} 
-            className="flex items-center gap-4 px-6 py-4 rounded-2xl bg-white/5 dark:bg-slate-900/10 backdrop-blur-3xl border border-white/20 dark:border-white/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:border-primary/50 transition-colors min-w-fit group"
+            className="flex items-center gap-2 sm:gap-4 px-4 sm:px-6 py-2 sm:py-4 rounded-xl sm:rounded-2xl bg-white/5 dark:bg-slate-900/10 backdrop-blur-3xl border border-white/20 dark:border-white/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:border-primary/50 transition-colors min-w-fit group"
           >
             <img 
               src={skill.icon} 
               alt={skill.name} 
-              className={`w-10 h-10 object-contain group-hover:scale-110 transition-transform ${skill.invertDark ? 'dark:invert opacity-80' : ''}`}
+              className={`w-8 h-8 sm:w-10 sm:h-10 object-contain group-hover:scale-110 transition-transform ${skill.invertDark ? 'dark:invert opacity-80' : ''}`}
             />
-            <span className="text-xl font-bold text-foreground/80 group-hover:text-primary transition-colors">{skill.name}</span>
+            <span className="text-base sm:text-xl font-bold text-foreground/80 group-hover:text-primary transition-colors">{skill.name}</span>
           </div>
         ))}
       </motion.div>
@@ -55,13 +55,13 @@ export function Skills() {
   );
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden">
+    <section id="skills" className="py-10 md:py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-primary/5 dark:bg-primary/5 -skew-y-3 -z-10 transform origin-bottom-left" />
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn direction="up">
-          <div className="flex flex-col items-center justify-center text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Technical Stack</h2>
-            <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+          <div className="flex flex-col items-center justify-center text-center mb-12">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Technical Stack</h2>
+            <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
               The ecosystem of languages, frameworks, and AI tools I use to build intelligent applications.
             </p>
           </div>

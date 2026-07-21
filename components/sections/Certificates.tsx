@@ -53,13 +53,13 @@ export function Certificates() {
   };
 
   return (
-    <section id="certificates" className="py-24 relative overflow-hidden">
+    <section id="certificates" className="py-10 md:py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-primary/5 dark:bg-primary/5 -skew-y-3 -z-10 transform origin-bottom-right" />
       <div className="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn direction="up">
-          <div className="flex flex-col items-center justify-center text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Certificates</h2>
-            <p className="mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+          <div className="flex flex-col items-center justify-center text-center mb-12">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Certificates</h2>
+            <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
               A collection of my academic, professional, and technical certifications that validate my skills.
             </p>
           </div>
@@ -68,7 +68,7 @@ export function Certificates() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayedCerts.map((cert, index) => (
             <FadeIn key={index} direction="up" delay={0.1 * (index % 3)} fullWidth>
-              <div className="flex flex-col p-8 bg-white/5 dark:bg-slate-900/10 backdrop-blur-3xl border border-white/20 dark:border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:shadow-xl hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300 h-full group relative overflow-hidden">
+              <div className="flex flex-col p-5 md:p-8 bg-white/5 dark:bg-slate-900/10 backdrop-blur-3xl border border-white/20 dark:border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:shadow-xl hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300 h-full group relative overflow-hidden">
                 {/* Decorative glowing orb */}
                 <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none"></div>
 

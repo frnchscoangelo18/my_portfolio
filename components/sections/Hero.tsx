@@ -24,7 +24,7 @@ export function Hero() {
   }, []);
 
   const ActionButtons = () => (
-    <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 lg:pt-6">
+    <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 lg:pt-6 w-full sm:w-auto">
       <Link href="#projects" className="inline-flex items-center justify-center rounded-full text-sm font-medium transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(14,165,233,0.4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-primary text-primary-foreground h-12 px-8 py-2 w-full sm:w-auto overflow-hidden relative group">
         <span className="relative z-10 flex items-center">
           View My Work
@@ -39,7 +39,7 @@ export function Hero() {
   );
 
   return (
-    <section id="hero" className="flex min-h-screen items-center justify-center px-4 py-24 relative overflow-hidden">
+    <section id="hero" className="flex min-h-[100dvh] items-center justify-center px-4 py-16 md:py-24 relative overflow-hidden">
       {/* Dynamic Background Mesh */}
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none bg-background">
         <motion.div 
@@ -62,7 +62,7 @@ export function Hero() {
           </FadeIn>
           
           <FadeIn direction="right" delay={0.2} fullWidth>
-            <p className="max-w-2xl text-lg sm:text-xl text-muted-foreground leading-relaxed mt-2 lg:mt-4 h-8">
+            <p className="max-w-2xl text-sm sm:text-lg text-muted-foreground leading-relaxed mt-2 lg:mt-4 h-8">
               <Typewriter text="Future AI & Machine Learning Engineer" delay={0.8} speed={50} />
             </p>
           </FadeIn>
@@ -85,7 +85,7 @@ export function Hero() {
               transition={{ type: "tween", ease: "linear", duration: 0.1 }}
             />
             
-            <div className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full border border-white/20 dark:border-white/10 shadow-2xl overflow-hidden bg-card/50 backdrop-blur-md flex flex-col items-center justify-center transition-all duration-500 group-hover:scale-105 group-hover:border-primary/50 group-hover:shadow-[0_0_40px_rgba(14,165,233,0.3)] z-10">
+            <div className="relative w-36 h-36 sm:w-64 sm:h-64 lg:w-80 lg:h-80 rounded-full border border-white/20 dark:border-white/10 shadow-2xl overflow-hidden bg-card/50 backdrop-blur-md flex flex-col items-center justify-center transition-all duration-500 group-hover:scale-105 group-hover:border-primary/50 group-hover:shadow-[0_0_40px_rgba(14,165,233,0.3)] z-10">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent mix-blend-overlay z-10 pointer-events-none transition-opacity opacity-50 group-hover:opacity-100"></div>
               <img 
                 src="/profile.jpg" 
