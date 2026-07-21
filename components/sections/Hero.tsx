@@ -46,8 +46,8 @@ export function Hero() {
 
   return (
     <section id="hero" className="flex min-h-[100dvh] items-center justify-center px-4 py-16 md:py-24 relative overflow-hidden">
-      {/* Dynamic Background Mesh */}
-      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none bg-background">
+      {/* Dynamic Background Mesh (transparent to show global particles) */}
+      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none bg-transparent">
         <motion.div 
           className="absolute inset-0 opacity-40 mix-blend-screen"
           animate={{
