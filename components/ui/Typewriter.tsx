@@ -28,7 +28,6 @@ export function Typewriter({
   useEffect(() => {
     if (!started) return;
     
-    setDisplayedText(""); // Reset text when starting
     let i = 0;
     
     const typingInterval = setInterval(() => {

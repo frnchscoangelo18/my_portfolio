@@ -3,6 +3,33 @@
 import { motion } from "framer-motion";
 import { FadeIn } from "../ui/FadeIn";
 
+const MarqueeRow = ({ items, direction = "left", speed = 40, multiplier = 1 }: { items: any[], direction?: "left" | "right", speed?: number, multiplier?: number }) => (
+  <div 
+    className="flex w-full overflow-hidden whitespace-nowrap py-4"
+    style={{ WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
+  >
+    <motion.div
+      className="flex w-max gap-4 sm:gap-8 items-center"
+      animate={{ x: direction === "left" ? ["0%", `-${100 / multiplier}%`] : [`-${100 / multiplier}%`, "0%"] }}
+      transition={{ ease: "linear", duration: speed, repeat: Infinity }}
+    >
+      {items.map((skill, idx) => (
+        <div 
+          key={idx} 
+          className="flex items-center gap-2 sm:gap-4 px-4 sm:px-6 py-2 sm:py-4 rounded-xl sm:rounded-2xl bg-white/5 dark:bg-slate-900/10 backdrop-blur-3xl border border-white/20 dark:border-white/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:border-primary/50 transition-colors min-w-fit group"
+        >
+          <img 
+            src={skill.icon} 
+            alt={skill.name} 
+            className={`w-8 h-8 sm:w-10 sm:h-10 object-contain group-hover:scale-110 transition-transform ${skill.invertDark ? 'dark:invert opacity-80' : ''}`}
+          />
+          <span className="text-base sm:text-xl font-bold text-foreground/80 group-hover:text-primary transition-colors">{skill.name}</span>
+        </div>
+      ))}
+    </motion.div>
+  </div>
+);
+
 export function Skills() {
   const originalSkills = [
     { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" },
@@ -27,33 +54,6 @@ export function Skills() {
   const marquee1 = Array(MULTIPLIER).fill(row1Skills).flat();
   const marquee2 = Array(MULTIPLIER).fill(row2Skills).flat();
 
-  const MarqueeRow = ({ items, direction = "left", speed = 40 }: { items: any[], direction?: "left" | "right", speed?: number }) => (
-    <div 
-      className="flex w-full overflow-hidden whitespace-nowrap py-4"
-      style={{ WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
-    >
-      <motion.div
-        className="flex w-max gap-4 sm:gap-8 items-center"
-        animate={{ x: direction === "left" ? ["0%", `-${100 / MULTIPLIER}%`] : [`-${100 / MULTIPLIER}%`, "0%"] }}
-        transition={{ ease: "linear", duration: speed, repeat: Infinity }}
-      >
-        {items.map((skill, idx) => (
-          <div 
-            key={idx} 
-            className="flex items-center gap-2 sm:gap-4 px-4 sm:px-6 py-2 sm:py-4 rounded-xl sm:rounded-2xl bg-white/5 dark:bg-slate-900/10 backdrop-blur-3xl border border-white/20 dark:border-white/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:border-primary/50 transition-colors min-w-fit group"
-          >
-            <img 
-              src={skill.icon} 
-              alt={skill.name} 
-              className={`w-8 h-8 sm:w-10 sm:h-10 object-contain group-hover:scale-110 transition-transform ${skill.invertDark ? 'dark:invert opacity-80' : ''}`}
-            />
-            <span className="text-base sm:text-xl font-bold text-foreground/80 group-hover:text-primary transition-colors">{skill.name}</span>
-          </div>
-        ))}
-      </motion.div>
-    </div>
-  );
-
   return (
     <section id="skills" className="py-10 md:py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-primary/5 dark:bg-primary/5 -skew-y-3 -z-10 transform origin-bottom-left" />
@@ -69,10 +69,10 @@ export function Skills() {
 
         <div className="flex flex-col gap-6 w-full -mx-4 sm:mx-0">
           <FadeIn direction="up" delay={0.2} fullWidth>
-            <MarqueeRow items={marquee1} direction="left" speed={35} />
+            <MarqueeRow items={marquee1} direction="left" speed={35} multiplier={MULTIPLIER} />
           </FadeIn>
           <FadeIn direction="up" delay={0.3} fullWidth>
-            <MarqueeRow items={marquee2} direction="right" speed={45} />
+            <MarqueeRow items={marquee2} direction="right" speed={45} multiplier={MULTIPLIER} />
           </FadeIn>
         </div>
       </div>
