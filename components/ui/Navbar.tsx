@@ -30,12 +30,31 @@ export function Navbar() {
   );
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleWindowScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleWindowScroll);
+    return () => window.removeEventListener("scroll", handleWindowScroll);
   }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
+    // If it's a hash link, prevent default and smoothly scroll to it
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.substring(1);
+      const elem = document.getElementById(targetId);
+      if (elem) {
+        const lenis = (window as any).lenis;
+        if (lenis) {
+          // Adjust duration here for a slower scroll (e.g. 2.5 seconds)
+          lenis.scrollTo(elem, { duration: 2.5, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        } else {
+          elem.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+      window.history.pushState(null, "", href);
+    }
+  };
 
   return (
     <>
@@ -54,6 +73,7 @@ export function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className={`relative px-4 py-2 rounded-full transition-all duration-300 flex items-center justify-center gap-1.5 ${
                   isActive 
                     ? "text-primary font-bold drop-shadow-[0_0_12px_rgba(56,189,248,0.8)] scale-105" 
@@ -109,7 +129,10 @@ export function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => {
+                  handleNavClick(e, link.href);
+                  setIsMobileMenuOpen(false);
+                }}
                 className={`text-base font-medium transition-all w-full flex items-center justify-start gap-3 px-4 py-3 rounded-xl ${
                   activeSection === link.href 
                     ? "text-primary bg-primary/10 shadow-sm" 

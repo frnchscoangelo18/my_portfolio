@@ -19,8 +19,8 @@ export function Footer() {
           <p className="text-sm text-muted-foreground text-center md:text-right">
             &copy; {currentYear} Franchesco Angelo. All rights reserved.
           </p>
-          <p className="text-xs text-muted-foreground/60 text-center md:text-right">
-            Designed & Built with <span className="text-primary font-medium">Next.js</span> and <span className="text-primary font-medium">Tailwind</span>.
+          <p className="text-xs text-muted-foreground/80 italic text-center md:text-right mt-1">
+            &quot;The best way to predict the future is to invent it.&quot; — Alan Kay
           </p>
         </div>
 

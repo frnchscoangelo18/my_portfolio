@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 // Removed lucide-react icons for terminal snippet
 import { FadeIn } from "../ui/FadeIn";
 import { HeroTitle } from "../ui/HeroTitle";
@@ -129,10 +130,12 @@ export function Hero() {
               
               {/* Image */}
               <div className="relative w-full h-full rounded-full overflow-hidden z-20">
-                <img 
+                <Image 
                   src="/profile.jpg" 
                   alt="Franchesco Angelo Angeles" 
-                  className="w-full h-full object-cover object-[100%_top]"
+                  fill
+                  priority
+                  className="object-cover object-[100%_top]"
                 />
               </div>
             </div>
@@ -195,9 +198,11 @@ export function Hero() {
                   {/* Robust Scrollable Area */}
                   <div className="flex-1 w-full overflow-y-auto bg-zinc-950/40 relative z-10">
                     <div className="w-full min-h-full flex justify-center items-start p-3 sm:p-6 lg:p-10">
-                      <img 
+                      <Image 
                         src="/CV.png" 
                         alt="Curriculum Vitae"
+                        width={1200}
+                        height={1600}
                         className="w-full max-w-4xl h-auto shadow-[0_0_40px_rgba(0,0,0,0.5)] rounded-md sm:rounded-xl border border-white/10 bg-white"
                       />
                     </div>

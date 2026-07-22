@@ -1,5 +1,6 @@
 import { ExternalLink, Code } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { FadeIn } from "../ui/FadeIn";
 import { SpotlightCard } from "../ui/SpotlightCard";
 
@@ -38,7 +39,7 @@ export function Projects() {
           <div className="flex flex-col items-center justify-center text-center mb-12">
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Featured Projects</h2>
             <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-              A selection of projects I've built or am currently working on. These will be updated with actual project details soon.
+              A selection of projects I've built or am currently working on. Each project represents a unique challenge and a step forward in my software engineering journey.
             </p>
           </div>
         </FadeIn>
@@ -53,10 +54,11 @@ export function Projects() {
                   <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors z-10 pointer-events-none"></div>
                   
                   {project.image ? (
-                    <img 
+                    <Image 
                       src={project.image} 
                       alt={`${project.title} screenshot`}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                   ) : (
                     <span className="text-muted-foreground text-sm font-medium z-10 bg-background/30 px-4 py-2 rounded-full border border-border/50 backdrop-blur-xl">Image Placeholder</span>
