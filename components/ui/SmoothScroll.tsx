@@ -15,6 +15,9 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       touchMultiplier: 2,
     });
 
+    // Expose lenis to window so other components can trigger scrollTo
+    (window as any).lenis = lenis;
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);

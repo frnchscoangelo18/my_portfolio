@@ -42,7 +42,7 @@ const EmailIcon = ({ className }: { className?: string }) => (
 
 export function Contact() {
   const socialLinks = [
-    { name: "Email", icon: <EmailIcon className="h-5 w-5" />, href: "https://mail.google.com/mail/?view=cm&fs=1&to=franchescoangelo1805@gmail.com", handle: "franchescoangelo1805@gmail.com" },
+    { name: "Email", icon: <EmailIcon className="h-5 w-5" />, href: "mailto:franchescoangelo1805@gmail.com", handle: "franchescoangelo1805@gmail.com" },
     { name: "LinkedIn", icon: <Linkedin className="h-5 w-5" />, href: "https://www.linkedin.com/in/franchescoangeloangeles18", handle: "Franchesco Angelo Angeles" },
     { name: "GitHub", icon: <Github className="h-5 w-5" />, href: "https://github.com/frnchscoangelo18", handle: "frnchscoangelo18" },
     { name: "Facebook", icon: <Facebook className="h-5 w-5" />, href: "https://www.facebook.com/anshell01", handle: "Franchesco Angelo" },
