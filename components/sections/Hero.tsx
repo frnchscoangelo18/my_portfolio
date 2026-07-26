@@ -13,6 +13,14 @@ import { motion, AnimatePresence } from "framer-motion";
 export function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showCV, setShowCV] = useState(false);
+  const [easterEgg, setEasterEgg] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (easterEgg) {
+      const timer = setTimeout(() => setEasterEgg(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [easterEgg]);
 
   useEffect(() => {
     if (showCV) {
@@ -65,13 +73,29 @@ export function Hero() {
         {/* Left Side: Terminal Information */}
         <div className="flex flex-col flex-1 w-full max-w-2xl lg:max-w-none">
           <FadeIn direction="right" delay={0.1} fullWidth>
-            <div className="w-full bg-[#031525]/90 dark:bg-[#020b14]/90 backdrop-blur-xl rounded-xl border border-sky-500/30 shadow-[0_0_40px_rgba(14,165,233,0.2)] overflow-hidden">
+            <motion.div 
+              animate={{ y: [0, -8, 0] }} 
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="w-full bg-[#031525]/90 dark:bg-[#020b14]/90 backdrop-blur-xl rounded-xl border border-sky-500/30 shadow-[0_0_40px_rgba(14,165,233,0.2)] overflow-hidden"
+            >
               {/* Terminal Header */}
               <div className="flex items-center px-4 py-3 border-b border-sky-500/20 bg-sky-900/40">
                 <div className="flex gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                  <button 
+                    onClick={() => setEasterEgg("🚨 System Alert: Extreme coffee level required! ☕")}
+                    className="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-400 hover:scale-125 transition-all cursor-pointer"
+                    title="Click for Red Alert"
+                  />
+                  <button 
+                    onClick={() => setEasterEgg("⚡ Overclocking AI neural pathways to 200%...")}
+                    className="w-3 h-3 rounded-full bg-yellow-500/80 hover:bg-yellow-400 hover:scale-125 transition-all cursor-pointer"
+                    title="Click for Turbo Mode"
+                  />
+                  <button 
+                    onClick={() => setEasterEgg("🚀 System Ready: Ready to build state-of-the-art AI applications!")}
+                    className="w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-400 hover:scale-125 transition-all cursor-pointer"
+                    title="Click for Ready Status"
+                  />
                 </div>
                 <div className="mx-auto text-xs text-sky-400 font-mono tracking-wider flex items-center gap-2">
                   <span className="opacity-50">~</span> franchesco.exe
@@ -79,8 +103,23 @@ export function Hero() {
               </div>
               
               {/* Terminal Body */}
-              <div className="p-6 sm:p-8 lg:p-10 text-left flex flex-col gap-6">
+              <div className="p-6 sm:p-8 lg:p-10 text-left flex flex-col gap-6 relative">
                 
+                {/* Easter Egg Notification Banner */}
+                <AnimatePresence>
+                  {easterEgg && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      className="p-3 rounded-lg bg-sky-500/20 border border-sky-400/40 text-sky-200 text-xs sm:text-sm font-mono flex items-center justify-between shadow-lg backdrop-blur-md"
+                    >
+                      <span>{easterEgg}</span>
+                      <button onClick={() => setEasterEgg(null)} className="text-sky-400 hover:text-white font-bold ml-2">×</button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 {/* Command 1: whoami */}
                 <div>
                   <div className="flex items-center gap-2 text-sky-400 font-mono text-sm sm:text-base mb-3 opacity-80">
@@ -111,34 +150,36 @@ export function Hero() {
                 </motion.div>
                 
               </div>
-            </div>
+            </motion.div>
           </FadeIn>
         </div>
 
-        {/* Right Side: Photo */}
         {/* Right Side: Photo */}
         <FadeIn direction="left" delay={0.3}>
           <div className="flex-1 flex justify-center lg:justify-end w-full max-w-[280px] sm:max-w-md mx-auto lg:mx-0 relative mt-10 lg:mt-0">
             
             {/* Profile Picture Container */}
-            <div 
+            <motion.div 
               onClick={handlePictureClick}
-              className="relative w-52 h-52 sm:w-72 sm:h-72 lg:w-[22rem] lg:h-[22rem] flex flex-col items-center justify-center z-10 cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="relative w-52 h-52 sm:w-72 sm:h-72 lg:w-[22rem] lg:h-[22rem] flex flex-col items-center justify-center z-10 cursor-pointer group"
             >
               {/* Glow Behind Picture */}
-              <div className="absolute inset-0 rounded-full bg-primary/20 blur-[2rem] opacity-60"></div>
+              <div className="absolute inset-0 rounded-full bg-primary/20 group-hover:bg-primary/40 blur-[2rem] group-hover:blur-[3rem] opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
               
               {/* Image */}
-              <div className="relative w-full h-full rounded-full overflow-hidden z-20">
+              <div className="relative w-full h-full rounded-full overflow-hidden z-20 border-2 border-transparent group-hover:border-primary/50 transition-colors duration-500 shadow-2xl">
                 <Image 
                   src="/profile.jpg" 
                   alt="Franchesco Angelo Angeles" 
                   fill
                   priority
+                  sizes="(max-width: 640px) 208px, (max-width: 1024px) 288px, 352px"
                   className="object-cover object-[100%_top]"
                 />
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </FadeIn>
