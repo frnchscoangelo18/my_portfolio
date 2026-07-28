@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/*
+ * Z-Index Scale:
+ * -50: Background gradient orbs (page.tsx)
+ * -40: Particle canvas (ParticleBackground)
+ * -10: Section decorative backgrounds
+ *  10: Content with relative positioning
+ *  20: Overlays within components
+ *  50: Fixed navigation, modals
+ */
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ReactNode } from "react";
 
 interface FadeInProps {
@@ -12,6 +12,8 @@ interface FadeInProps {
 }
 
 export function FadeIn({ children, delay = 0, direction = "up", fullWidth = false, className = "" }: FadeInProps) {
+  const shouldReduceMotion = useReducedMotion();
+
   const directions = {
     up: { y: 40, x: 0 },
     down: { y: -40, x: 0 },
@@ -19,6 +21,14 @@ export function FadeIn({ children, delay = 0, direction = "up", fullWidth = fals
     right: { x: -40, y: 0 },
     none: { x: 0, y: 0 },
   };
+
+  if (shouldReduceMotion) {
+    return (
+      <div className={`${fullWidth ? "w-full" : ""} ${className}`}>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <motion.div

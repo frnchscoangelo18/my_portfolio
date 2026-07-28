@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 export function Typewriter({
   text,
@@ -16,6 +16,7 @@ export function Typewriter({
 }) {
   const [displayedText, setDisplayedText] = useState("");
   const [started, setStarted] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const startTimeout = setTimeout(() => {
@@ -27,6 +28,10 @@ export function Typewriter({
 
   useEffect(() => {
     if (!started) return;
+    if (shouldReduceMotion) {
+      setDisplayedText(text);
+      return;
+    }
     
     let i = 0;
     
@@ -40,7 +45,11 @@ export function Typewriter({
     }, speed);
 
     return () => clearInterval(typingInterval);
-  }, [text, speed, started]);
+  }, [text, speed, started, shouldReduceMotion]);
+
+  if (shouldReduceMotion) {
+    return <span>{text}</span>;
+  }
 
   return (
     <span>

@@ -1,18 +1,9 @@
 import { Briefcase } from "lucide-react";
 import { FadeIn } from "../ui/FadeIn";
 import { SpotlightCard } from "../ui/SpotlightCard";
+import { experiences } from "@/data/experience";
 
 export function Experience() {
-  const experiences = [
-    {
-      role: "IT Network Support Intern",
-      company: "EWS Telecommunications Services",
-      date: "July 2026 - Present",
-      description: "Providing technical support and troubleshooting network issues for clients.",
-    },
-    
-  ];
-
   return (
     <section id="experience" className="py-10 md:py-20 bg-muted/30 relative">
       <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">

@@ -4,36 +4,13 @@ import { useState } from "react";
 import { Award, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
 import { FadeIn } from "../ui/FadeIn";
+import { SpotlightCard } from "../ui/SpotlightCard";
+import { certificates } from "@/data/certificates";
 
 export function Certificates() {
   const [showAll, setShowAll] = useState(false);
 
-  const placeholderCertificates = [
-    {
-      title: "Intermediate Python",
-      issuer: "DataCamp",
-      date: "January 2026",
-      link: "https://www.datacamp.com/statement-of-accomplishment/course/5e97fdfa1acf991a0d8a58b1dba0b1821da80359?raw=1",
-      logo: "https://cdn.simpleicons.org/datacamp/03EF62",
-    },
-    {
-      title: "Data Manipulation with pandas",
-      issuer: "DataCamp",
-      date: "Feb 2026",
-      link: "https://www.datacamp.com/statement-of-accomplishment/course/936a431c8311a0f00ff7fda67cf70e39e8868e8d?raw=1",
-      logo: "https://cdn.simpleicons.org/datacamp/03EF62",
-    },
-    {
-      title: "Applying SQL to Real-World Problems",
-      issuer: "DataCamp",
-      date: "March 2026",
-      link: "https://www.datacamp.com/statement-of-accomplishment/course/7db9c98e6c80b84f72396b095f7fef4990674de0?raw=1",
-      logo: "https://cdn.simpleicons.org/datacamp/03EF62",
-    },
-
-  ];
-
-  const displayedCerts = showAll ? placeholderCertificates : placeholderCertificates.slice(0, 3);
+  const displayedCerts = showAll ? certificates : certificates.slice(0, 3);
 
   const handleToggle = () => {
     if (showAll) {
@@ -68,10 +45,7 @@ export function Certificates() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayedCerts.map((cert, index) => (
             <FadeIn key={index} direction="up" delay={0.1 * (index % 3)} fullWidth>
-              <div className="flex flex-col p-5 md:p-8 bg-white/5 dark:bg-slate-900/10 backdrop-blur-3xl border border-white/20 dark:border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:shadow-xl hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300 h-full group relative overflow-hidden">
-                {/* Decorative glowing orb */}
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none"></div>
-
+              <SpotlightCard className="flex flex-col p-5 md:p-8 h-full">
                 <div className="flex items-start justify-between mb-6 relative z-10">
                   <div className="p-3 bg-primary/10 rounded-xl group-hover:bg-primary group-hover:text-primary-foreground transition-colors text-primary backdrop-blur-sm flex items-center justify-center w-14 h-14">
                     {cert.logo ? (
@@ -103,13 +77,13 @@ export function Certificates() {
                     <ExternalLink className="w-4 h-4 ml-2" />
                   </Link>
                 </div>
-              </div>
+              </SpotlightCard>
             </FadeIn>
           ))}
         </div>
 
         {/* View More / View Less Button */}
-        {placeholderCertificates.length > 3 && (
+        {certificates.length > 3 && (
           <FadeIn direction="up" delay={0.3}>
             <div className="mt-12 flex justify-center">
               <button
@@ -122,7 +96,7 @@ export function Certificates() {
                   </>
                 ) : (
                   <>
-                    View All {placeholderCertificates.length} Certificates <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
+                    View All {certificates.length} Certificates <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
                   </>
                 )}
               </button>

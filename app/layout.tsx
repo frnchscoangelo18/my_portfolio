@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, Outfit, Silkscreen } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "../components/ui/ThemeProvider";
-import { Navbar } from "../components/ui/Navbar";
-import { Footer } from "../components/ui/Footer";
-import { SmoothScroll } from "../components/ui/SmoothScroll";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import { Navbar } from "@/components/ui/Navbar";
+import { Footer } from "@/components/ui/Footer";
+import { SmoothScroll } from "@/components/ui/SmoothScroll";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -58,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html
+    <html
       lang="en"
       suppressHydrationWarning
       className={`${inter.variable} ${outfit.variable} ${pixelFont.variable} antialiased`}

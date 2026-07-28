@@ -5,19 +5,21 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 export function ThemeToggle() {
-  const { setTheme, theme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   const toggleTheme = (e: React.MouseEvent) => {
     const isDark = resolvedTheme === "dark";
     const nextTheme = isDark ? "light" : "dark";
 
-    // Fallback for browsers that don't support View Transitions
-    if (!document.startViewTransition) {
+    const doc = document as Document & {
+      startViewTransition?: (callback: () => void) => { ready: Promise<void> };
+    };
+
+    if (!doc.startViewTransition) {
       setTheme(nextTheme);
       return;
     }
 
-    // Get the click position to originate the circle animation
     const x = e.clientX;
     const y = e.clientY;
 
@@ -26,8 +28,7 @@ export function ThemeToggle() {
       Math.max(y, window.innerHeight - y)
     );
 
-    const transition = document.startViewTransition(() => {
-      // Temporarily flush sync because we need the DOM to update instantly
+    const transition = doc.startViewTransition(() => {
       setTheme(nextTheme);
     });
 
