@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Award, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { FadeIn } from "../ui/FadeIn";
 import { SpotlightCard } from "../ui/SpotlightCard";
 import { certificates } from "@/data/certificates";
@@ -47,9 +48,11 @@ export function Certificates() {
             <FadeIn key={index} direction="up" delay={0.1 * (index % 3)} fullWidth>
               <SpotlightCard className="flex flex-col p-5 md:p-8 h-full">
                 <div className="flex items-start justify-between mb-6 relative z-10">
-                  <div className="p-3 bg-primary/10 rounded-xl group-hover:bg-primary group-hover:text-primary-foreground transition-colors text-primary backdrop-blur-sm flex items-center justify-center w-14 h-14">
+                  <div className="p-3 bg-primary/10 rounded-xl group-hover:bg-primary group-hover:text-primary-foreground transition-colors text-primary backdrop-blur-sm flex items-center justify-center w-14 h-14 relative">
                     {cert.logo ? (
-                      <img src={cert.logo} alt={`${cert.issuer} logo`} className="w-8 h-8 object-contain group-hover:brightness-0 group-hover:invert transition-all" />
+                      <div className="relative w-8 h-8">
+                        <Image src={cert.logo} alt={`${cert.issuer} logo`} fill className="object-contain group-hover:brightness-0 group-hover:invert transition-all" />
+                      </div>
                     ) : (
                       <Award className="h-8 w-8" />
                     )}

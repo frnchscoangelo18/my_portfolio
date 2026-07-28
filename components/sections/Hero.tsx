@@ -49,14 +49,14 @@ export function Hero() {
       {/* Dynamic Background Mesh (transparent to show global particles) */}
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none bg-transparent">
         <motion.div 
-          className="absolute inset-0 opacity-40 mix-blend-screen"
+          className="absolute inset-0 opacity-40 mix-blend-screen will-change-[background]"
           animate={shouldReduceMotion ? { background: `radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.15) 0%, transparent 50%)` } : {
             background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(14, 165, 233, 0.15) 0%, transparent 50%)`
           }}
           transition={{ type: "tween", ease: "linear", duration: 0.2 }}
         />
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3"></div>
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[150px] translate-y-1/3 -translate-x-1/4"></div>
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 will-change-transform"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[150px] translate-y-1/3 -translate-x-1/4 will-change-transform"></div>
       </div>
       
       <div className="container mx-auto max-w-6xl flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16 z-10 mt-16 md:mt-0">

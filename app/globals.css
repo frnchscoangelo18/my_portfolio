@@ -83,3 +83,12 @@ body {
 ::view-transition-new(root) {
   z-index: 2;
 }
+
+/* Global Accessible Focus Rings */
+@layer base {
+  *:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}
+
