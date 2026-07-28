@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { CommandPalette } from "@/components/ui/CommandPalette";
+import { CVModal } from "@/components/ui/CVModal";
 import { 
   Menu, X, Home, User, Briefcase, 
-  Code2, LayoutGrid, Award, Mail 
+  Code2, LayoutGrid, Award, Mail, Search 
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
@@ -26,6 +28,8 @@ const SECTION_IDS = NAV_LINKS.map((link) => link.href);
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isCmdPaletteOpen, setIsCmdPaletteOpen] = useState(false);
+  const [isCVModalOpen, setIsCVModalOpen] = useState(false);
   const lenis = useLenis();
 
   const activeSection = useScrollSpy(SECTION_IDS, 150);
@@ -72,7 +76,7 @@ export function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`relative px-4 py-2 rounded-full transition-all duration-300 flex items-center justify-center gap-1.5 ${
+                className={`relative px-4 py-2 rounded-full transition-all duration-300 flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                   isActive 
                     ? "text-primary font-bold drop-shadow-[0_0_12px_rgba(56,189,248,0.8)] scale-105" 
                     : "text-muted-foreground hover:text-foreground hover:scale-105"
@@ -93,7 +97,16 @@ export function Navbar() {
             );
           })}
         </nav>
-        <div className="ml-4 pl-4 border-l border-border/50">
+        
+        <div className="ml-2 flex items-center gap-2 pl-3 border-l border-border/50">
+          <button
+            onClick={() => setIsCmdPaletteOpen(true)}
+            aria-label="Open Command Palette"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground bg-muted/40 hover:bg-muted/80 rounded-full border border-border/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          >
+            <Search className="w-3.5 h-3.5" />
+            <kbd className="font-mono text-[10px] bg-background/50 px-1.5 py-0.5 rounded border border-border/40">⌘K</kbd>
+          </button>
           <ThemeToggle />
         </div>
       </header>
@@ -103,7 +116,7 @@ export function Navbar() {
         <header className="flex items-center justify-between h-14 px-1 transition-all duration-300">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-foreground hover:text-primary transition-colors focus:outline-none flex items-center justify-center"
+            className="text-foreground hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg flex items-center justify-center p-2"
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
@@ -111,7 +124,14 @@ export function Navbar() {
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
           
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsCmdPaletteOpen(true)}
+              aria-label="Search site"
+              className="p-2 text-muted-foreground hover:text-foreground bg-background/40 backdrop-blur-md rounded-full border border-border/50"
+            >
+              <Search className="w-4 h-4" />
+            </button>
             <ThemeToggle />
           </div>
         </header>
@@ -145,6 +165,17 @@ export function Navbar() {
           </nav>
         </div>
       </div>
+
+      <CommandPalette
+        isOpen={isCmdPaletteOpen}
+        onClose={() => setIsCmdPaletteOpen(false)}
+        onOpenCV={() => setIsCVModalOpen(true)}
+      />
+
+      <CVModal
+        isOpen={isCVModalOpen}
+        onClose={() => setIsCVModalOpen(false)}
+      />
     </>
   );
 }
