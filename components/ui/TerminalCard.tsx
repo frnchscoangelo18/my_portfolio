@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface TerminalCardProps {
   children: React.ReactNode;
@@ -10,12 +10,9 @@ interface TerminalCardProps {
 }
 
 export function TerminalCard({ children, easterEgg, onEasterEgg, onClearEasterEgg }: TerminalCardProps) {
-  const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.div 
-      animate={shouldReduceMotion ? { y: 0 } : { y: [0, -8, 0] }} 
-      transition={shouldReduceMotion ? { duration: 0 } : { duration: 6, repeat: Infinity, ease: "easeInOut" }}
+    <div 
       className="w-full bg-[#031525]/90 dark:bg-[#020b14]/90 backdrop-blur-xl rounded-xl border border-sky-500/30 shadow-[0_0_40px_rgba(14,165,233,0.2)] overflow-hidden"
     >
       {/* Terminal Header */}
@@ -43,7 +40,7 @@ export function TerminalCard({ children, easterEgg, onEasterEgg, onClearEasterEg
       </div>
       
       {/* Terminal Body */}
-      <div className="p-6 sm:p-8 lg:p-10 text-left flex flex-col gap-6 relative">
+      <div className="p-5 sm:p-6 lg:p-8 text-left flex flex-col gap-5 relative">
         
         {/* Easter Egg Notification Banner */}
         <AnimatePresence>
@@ -63,6 +60,6 @@ export function TerminalCard({ children, easterEgg, onEasterEgg, onClearEasterEg
         {children}
         
       </div>
-    </motion.div>
+    </div>
   );
 }

@@ -29,7 +29,7 @@ export function HeroTitle() {
 
   if (prefersReducedMotion) {
     return (
-      <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.3] font-pixel min-h-[80px] sm:min-h-[120px] lg:min-h-[160px]">
+      <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-[1.3] font-pixel min-h-[60px] sm:min-h-[100px] lg:min-h-[140px]">
         Franchesco Angelo Angeles! <br className="hidden sm:block"/>
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-blue-500 to-sky-600 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500">
           Computer Engineering
@@ -42,7 +42,7 @@ export function HeroTitle() {
   }
 
   return (
-    <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.3] font-pixel min-h-[80px] sm:min-h-[120px] lg:min-h-[160px]">
+    <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-[1.3] font-pixel min-h-[60px] sm:min-h-[100px] lg:min-h-[140px]">
       <Typewriter text="Franchesco Angelo Angeles!" delay={0.5} speed={60} showCursor={false} /> <br className="hidden sm:block"/>
       <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-blue-500 to-sky-600 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500">
         <Typewriter text="Computer Engineering" delay={2.2} speed={60} showCursor={false} />

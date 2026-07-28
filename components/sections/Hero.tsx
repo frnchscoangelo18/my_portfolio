@@ -55,11 +55,11 @@ export function Hero() {
           }}
           transition={{ type: "tween", ease: "linear", duration: 0.2 }}
         />
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 will-change-transform"></div>
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[150px] translate-y-1/3 -translate-x-1/4 will-change-transform"></div>
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 will-change-transform"></div>
+        <div className="absolute bottom-0 left-0 w-[480px] h-[480px] bg-blue-500/10 rounded-full blur-[120px] translate-y-1/3 -translate-x-1/4 will-change-transform"></div>
       </div>
       
-      <div className="container mx-auto max-w-6xl flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16 z-10 mt-16 md:mt-0">
+      <div className="container mx-auto max-w-6xl flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 z-10 mt-12 md:mt-0">
         
         {/* Left Side: Terminal Information */}
         <div className="flex flex-col flex-1 w-full max-w-2xl lg:max-w-none">
@@ -88,7 +88,7 @@ export function Hero() {
                   <Typewriter text="python_predict_future.py" delay={3.5} speed={40} showCursor={false} />
                 </div>
                 <div className="pl-4 border-l-2 border-sky-500/30">
-                  <p className="text-sm sm:text-lg text-sky-100/90 leading-relaxed font-mono h-8">
+                  <p className="text-xs sm:text-base text-sky-100/90 leading-relaxed font-mono h-8">
                     <Typewriter text="Future AI & Machine Learning Engineer" delay={4.2} speed={40} showCursor={false} />
                   </p>
                 </div>
@@ -108,7 +108,7 @@ export function Hero() {
               onClick={() => setShowCV(true)}
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="relative w-52 h-52 sm:w-72 sm:h-72 lg:w-[22rem] lg:h-[22rem] flex flex-col items-center justify-center z-10 cursor-pointer group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background rounded-full"
+              className="relative w-48 h-48 sm:w-60 sm:h-60 lg:w-[18rem] lg:h-[18rem] flex flex-col items-center justify-center z-10 cursor-pointer group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background rounded-full"
             >
               {/* Glow Behind Picture */}
               <div className="absolute inset-0 rounded-full bg-primary/20 group-hover:bg-primary/40 blur-[2rem] group-hover:blur-[3rem] opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
