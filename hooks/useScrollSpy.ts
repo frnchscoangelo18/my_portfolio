@@ -1,5 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 
+/**
+ * High-performance active section tracker custom hook.
+ *
+ * Uses `requestAnimationFrame` throttle and passive scroll listeners to detect which section target
+ * is currently in the viewport without causing main-thread jank.
+ *
+ * @param sectionIds - Array of section link IDs (e.g. `['#hero', '#about', '#projects']`)
+ * @param offset - Vertical pixel offset threshold to adjust active activation trigger point (default: 100)
+ * @returns The href string of the currently active section (e.g. `'#about'`)
+ */
 export function useScrollSpy(sectionIds: string[], offset: number = 100) {
   const [activeSection, setActiveSection] = useState<string>("");
   const activeSectionRef = useRef<string>("");

@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Award, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { FadeIn } from "../ui/FadeIn";
 import { SpotlightCard } from "../ui/SpotlightCard";
@@ -44,7 +43,7 @@ export function Certificates() {
           <div className="flex flex-col items-center justify-center text-center mb-10">
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Certificates</h2>
             <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-              A collection of my academic, professional, and technical certifications that validate my skills.
+              Verified technical credentials and certifications in Python, Data Science, and SQL.
             </p>
           </div>
         </FadeIn>
@@ -94,13 +93,20 @@ export function Certificates() {
               >
                 <SpotlightCard className="flex flex-col p-5 md:p-8 h-full">
                   <div className="flex items-start justify-between mb-6 relative z-10">
-                    <div className="p-3 bg-primary/10 rounded-xl group-hover:bg-primary group-hover:text-primary-foreground transition-colors text-primary backdrop-blur-sm flex items-center justify-center w-14 h-14 relative">
+                    <div className="p-3 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors text-primary flex items-center justify-center w-12 h-12 shrink-0 border border-primary/20">
                       {cert.logo ? (
-                        <div className="relative w-8 h-8">
-                          <Image src={cert.logo} alt={`${cert.issuer} logo`} fill className="object-contain group-hover:brightness-0 group-hover:invert transition-all" />
-                        </div>
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img 
+                          src={cert.logo} 
+                          alt={`${cert.issuer} logo`} 
+                          className="w-6 h-6 object-contain"
+                          onError={(e) => {
+                            // Fallback to hidden if icon fails to load
+                            e.currentTarget.style.display = 'none';
+                          }} 
+                        />
                       ) : (
-                        <Award className="h-8 w-8" />
+                        <Award className="h-6 w-6 text-primary" />
                       )}
                     </div>
                     <div className="flex items-center gap-2">

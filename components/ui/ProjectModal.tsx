@@ -7,11 +7,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { Project } from "@/data/projects";
 
+/**
+ * Props for the `ProjectModal` component.
+ */
 interface ProjectModalProps {
+  /** The selected project details to render, or `null` when closed */
   project: Project | null;
+  /** Callback function invoked to close the modal */
   onClose: () => void;
 }
 
+/**
+ * ProjectModal Component
+ *
+ * An accessible pop-out modal displaying detailed project information:
+ * - High-resolution screenshot preview
+ * - Full architectural description and feature list breakdown
+ * - Tech stack tags
+ * - GitHub repository and Live Demo buttons with focus styles and Escape-key listener
+ */
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -65,9 +79,6 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 fill
                 className="object-cover"
               />
-              <div className="absolute top-3 left-3 bg-primary/90 backdrop-blur-md text-primary-foreground text-xs font-bold px-3 py-1.5 rounded-full shadow">
-                {project.category}
-              </div>
             </div>
 
             <h2 id="modal-title" className="text-2xl sm:text-3xl font-bold text-foreground mb-3 font-pixel">

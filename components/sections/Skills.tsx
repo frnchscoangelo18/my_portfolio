@@ -17,7 +17,7 @@ export function Skills() {
           <div className="flex flex-col items-center justify-center text-center mb-12">
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Technical Stack</h2>
             <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-              The ecosystem of languages, frameworks, and AI tools I use to build intelligent applications.
+              The ecosystem of programming languages, frameworks, databases, and developer tools I use to build scalable software.
             </p>
           </div>
         </FadeIn>

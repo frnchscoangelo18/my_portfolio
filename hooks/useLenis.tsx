@@ -5,6 +5,12 @@ import Lenis from "lenis";
 
 const LenisContext = createContext<Lenis | null>(null);
 
+/**
+ * Context provider component that instantiates and manages the lifecycle of the Lenis smooth scroll engine.
+ *
+ * Checks `prefers-reduced-motion` to bypass smooth scrolling for user accessibility preference.
+ * Cleans up the requestAnimationFrame loop and destroys the Lenis instance on unmount.
+ */
 export const LenisProvider = ({ children }: { children: React.ReactNode }) => {
   const [lenis, setLenis] = useState<Lenis | null>(null);
 
@@ -48,6 +54,11 @@ export const LenisProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+/**
+ * Custom React hook to access the active Lenis smooth scroll instance.
+ *
+ * @returns The active `Lenis` instance or `null` if not inside `LenisProvider` or reduced motion is active.
+ */
 export const useLenis = () => {
   return useContext(LenisContext);
 };

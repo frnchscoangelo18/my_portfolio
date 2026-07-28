@@ -7,17 +7,17 @@ export function About() {
     {
       icon: <GraduationCap className="h-8 w-8 transition-colors" />,
       title: "Education",
-      description: "A 3rd year Bachelor of Science in Computer Engineering at Polytechnic University of the Philippines. Pursuing a specialization in AI and Machine Learning.",
+      description: "3rd-year BS Computer Engineering student at Polytechnic University of the Philippines, specializing in Artificial Intelligence and Machine Learning.",
     },
     {
       icon: <Code2 className="h-8 w-8 transition-colors" />,
       title: "Software Focus",
-      description: "Passionate about creating clean, scalable web applications and exploring modern frameworks and technologies in the frontend and backend.",
+      description: "Focused on crafting clean, responsive, and scalable web applications across the full stack using modern frameworks and TypeScript.",
     },
     {
       icon: <Cpu className="h-8 w-8 transition-colors" />,
       title: "Hardware Interest",
-      description: "Fascinated by how software interacts with hardware. Applying my knowledge in electrical and electronic circuits.",
+      description: "Intrigued by hardware-software integration, bringing circuit design and electronic principles into intelligent software solutions.",
     },
   ];
 
@@ -29,8 +29,7 @@ export function About() {
           <div className="flex flex-col items-center justify-center text-center mb-12">
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">About Me</h2>
             <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-              I am a dedicated computer engineering student who never stops learning new technologies
-              and exploring opportunities to showcase my skills. Always eager to take on new challenges and contribute to innovative projects.
+              I am a dedicated Computer Engineering student passionate about mastering emerging technologies, building intelligent web applications, and bridging software engineering with hardware systems.
             </p>
           </div>
         </FadeIn>

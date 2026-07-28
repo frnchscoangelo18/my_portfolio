@@ -89,7 +89,7 @@ export function ParticleBackground() {
         const dy = mouse.y - this.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < mouse.radius) {
+        if (distance < mouse.radius && distance > 0) {
           const forceDirectionX = dx / distance;
           const forceDirectionY = dy / distance;
           const force = (mouse.radius - distance) / mouse.radius;
@@ -141,6 +141,16 @@ export function ParticleBackground() {
       animationFrameId = requestAnimationFrame(animate);
     };
 
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationFrameId);
+      } else {
+        animate();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     resize();
     animate();
 
@@ -148,6 +158,7 @@ export function ParticleBackground() {
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseleave", onMouseLeave);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, [resolvedTheme]);

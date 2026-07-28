@@ -11,7 +11,7 @@ export function Experience() {
           <div className="flex flex-col items-center justify-center text-center mb-12">
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Work Experience</h2>
             <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-              A timeline of my professional journey, internships, and relevant work experience.
+              A timeline of my professional journey, technical internships, and hands-on industry experience.
             </p>
           </div>
         </FadeIn>

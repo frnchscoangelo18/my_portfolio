@@ -89,7 +89,7 @@ export function Hero() {
                 </div>
                 <div className="pl-4 border-l-2 border-sky-500/30">
                   <p className="text-xs sm:text-base text-sky-100/90 leading-relaxed font-mono h-8">
-                    <Typewriter text="Future AI & Machine Learning Engineer" delay={4.2} speed={40} showCursor={false} />
+                    <Typewriter text="Aspiring AI & Machine Learning Engineer" delay={4.2} speed={40} showCursor={false} />
                   </p>
                 </div>
               </motion.div>

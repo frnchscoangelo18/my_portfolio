@@ -2,12 +2,21 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
-import { CommandPalette } from "@/components/ui/CommandPalette";
-import { CVModal } from "@/components/ui/CVModal";
+
+const CommandPalette = dynamic(
+  () => import("@/components/ui/CommandPalette").then((mod) => mod.CommandPalette),
+  { ssr: false }
+);
+
+const CVModal = dynamic(
+  () => import("@/components/ui/CVModal").then((mod) => mod.CVModal),
+  { ssr: false }
+);
 import { 
   Menu, X, Home, User, Briefcase, 
-  Code2, LayoutGrid, Award, Mail, Search 
+  Code2, LayoutGrid, Award, Mail 
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
@@ -25,6 +34,17 @@ const NAV_LINKS = [
 
 const SECTION_IDS = NAV_LINKS.map((link) => link.href);
 
+/**
+ * Floating Navigation Bar component for desktop and mobile layouts.
+ *
+ * Features:
+ * - Active section tracking with scroll position via `useScrollSpy`
+ * - Smooth section scrolling integrated with Lenis smooth scroll engine
+ * - Responsive mobile drawer navigation with smooth spring/fade animations
+ * - Dynamic backdrop blur and glassmorphism style on page scroll
+ * - Integrated theme mode switcher (`ThemeToggle`)
+ * - Global `Cmd+K` / `Ctrl+K` keyboard shortcut handler for launching `CommandPalette`
+ */
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,6 +60,17 @@ export function Navbar() {
     };
     window.addEventListener("scroll", handleWindowScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleWindowScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsCmdPaletteOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
@@ -98,15 +129,7 @@ export function Navbar() {
           })}
         </nav>
         
-        <div className="ml-2 flex items-center gap-2 pl-3 border-l border-border/50">
-          <button
-            onClick={() => setIsCmdPaletteOpen(true)}
-            aria-label="Open Command Palette"
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground bg-muted/40 hover:bg-muted/80 rounded-full border border-border/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-          >
-            <Search className="w-3.5 h-3.5" />
-            <kbd className="font-mono text-[10px] bg-background/50 px-1.5 py-0.5 rounded border border-border/40">⌘K</kbd>
-          </button>
+        <div className="ml-4 pl-4 border-l border-border/50">
           <ThemeToggle />
         </div>
       </header>
@@ -124,14 +147,7 @@ export function Navbar() {
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
           
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setIsCmdPaletteOpen(true)}
-              aria-label="Search site"
-              className="p-2 text-muted-foreground hover:text-foreground bg-background/40 backdrop-blur-md rounded-full border border-border/50"
-            >
-              <Search className="w-4 h-4" />
-            </button>
+          <div className="flex items-center">
             <ThemeToggle />
           </div>
         </header>

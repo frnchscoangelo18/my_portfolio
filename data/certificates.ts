@@ -1,12 +1,24 @@
+/**
+ * Interface representing a professional certification entry.
+ */
 export interface Certificate {
+  /** Name of the certification course or degree */
   title: string;
+  /** Issuing organization or platform (e.g. DataCamp) */
   issuer: string;
+  /** Domain classification category */
   category: "Python" | "Data Science" | "SQL";
+  /** Date or month of completion */
   date: string;
+  /** Verification URL link to accomplishment statement */
   link: string;
+  /** Icon image URL for issuer branding */
   logo: string;
 }
 
+/**
+ * Array of verified professional certifications presented in the Certificates section.
+ */
 export const certificates: Certificate[] = [
   {
     title: "Intermediate Python",

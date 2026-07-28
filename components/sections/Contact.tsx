@@ -12,7 +12,7 @@ export function Contact() {
         <FadeIn direction="up">
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Get In Touch</h2>
           <p className="mt-4 sm:mt-6 md:mt-8 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            I&apos;m currently looking for new opportunities, internships, or interesting projects to collaborate on. Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
+            I am actively seeking internship opportunities, engineering collaborations, and full-stack/AI development roles. Whether you have a project in mind or want to connect, feel free to reach out!
           </p>
 
           <div className="mt-12 flex flex-col items-center justify-center gap-10">
