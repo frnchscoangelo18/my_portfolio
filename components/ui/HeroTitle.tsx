@@ -4,17 +4,16 @@ import { useEffect, useState } from "react";
 import { Typewriter } from "@/components/ui/Typewriter";
 
 export function HeroTitle() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [showCursor, setShowCursor] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => 
+    typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
+  );
+  const [showCursor, setShowCursor] = useState(() => prefersReducedMotion);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
 
     let timer: NodeJS.Timeout | null = null;
-    if (mediaQuery.matches) {
-      setShowCursor(true);
-    } else {
+    if (!mediaQuery.matches) {
       // Show cursor after typing completes (~4s for all 3 lines)
       timer = setTimeout(() => setShowCursor(true), 4000);
     }

@@ -14,9 +14,9 @@ export function Typewriter({
   speed?: number;
   showCursor?: boolean;
 }) {
-  const [displayedText, setDisplayedText] = useState("");
-  const [started, setStarted] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  const [displayedText, setDisplayedText] = useState(shouldReduceMotion ? text : "");
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
     const startTimeout = setTimeout(() => {
@@ -27,11 +27,7 @@ export function Typewriter({
   }, [delay]);
 
   useEffect(() => {
-    if (!started) return;
-    if (shouldReduceMotion) {
-      setDisplayedText(text);
-      return;
-    }
+    if (!started || shouldReduceMotion) return;
     
     let i = 0;
     

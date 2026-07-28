@@ -19,7 +19,9 @@ export const LenisProvider = ({ children }: { children: React.ReactNode }) => {
       touchMultiplier: 2,
     });
 
-    setLenis(lenisInstance);
+    queueMicrotask(() => {
+      setLenis(lenisInstance);
+    });
 
     let rafId: number;
 

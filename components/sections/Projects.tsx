@@ -13,7 +13,7 @@ export function Projects() {
           <div className="flex flex-col items-center justify-center text-center mb-12">
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Featured Projects</h2>
             <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-              A selection of projects I've built or am currently working on. Each project represents a unique challenge and a step forward in my software engineering journey.
+              A selection of projects I&apos;ve built or am currently working on. Each project represents a unique challenge and a step forward in my software engineering journey.
             </p>
           </div>
         </FadeIn>

@@ -57,7 +57,7 @@ export function useScrollSpy(sectionIds: string[], offset: number = 100) {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [sectionIdsKey, offset]);
+  }, [sectionIdsKey, sectionIds, offset]);
 
   return activeSection;
 }
