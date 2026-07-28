@@ -61,6 +61,7 @@ export function Projects() {
                       href={project.github} 
                       target="_blank" 
                       rel="noopener noreferrer"
+                      aria-label={`View source code for ${project.title}`}
                       className="flex items-center text-sm font-semibold text-muted-foreground hover:text-primary transition-colors"
                     >
                       <Code className="w-4 h-4 mr-2" />
@@ -70,6 +71,7 @@ export function Projects() {
                       href={project.demo} 
                       target="_blank" 
                       rel="noopener noreferrer"
+                      aria-label={`View live demo for ${project.title}`}
                       className="flex items-center text-sm font-semibold text-muted-foreground hover:text-primary transition-colors"
                     >
                       <ExternalLink className="w-4 h-4 mr-2" />

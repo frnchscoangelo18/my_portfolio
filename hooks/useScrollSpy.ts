@@ -7,10 +7,11 @@ export function useScrollSpy(sectionIds: string[], offset: number = 100) {
 
   useEffect(() => {
     let ticking = false;
+    let rafId: number | null = null;
 
     const handleScroll = () => {
       if (!ticking) {
-        window.requestAnimationFrame(() => {
+        rafId = window.requestAnimationFrame(() => {
           const scrollPosition = window.scrollY + offset;
 
           let currentSection = activeSectionRef.current;
@@ -56,7 +57,10 @@ export function useScrollSpy(sectionIds: string[], offset: number = 100) {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
+    };
   }, [sectionIdsKey, sectionIds, offset]);
 
   return activeSection;

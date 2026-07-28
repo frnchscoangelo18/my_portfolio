@@ -102,20 +102,13 @@ export function Hero() {
           <div className="flex-1 flex justify-center lg:justify-end w-full max-w-[280px] sm:max-w-md mx-auto lg:mx-0 relative mt-10 lg:mt-0">
             
             {/* Profile Picture Container */}
-            <motion.div 
-              role="button"
-              tabIndex={0}
+            <motion.button 
+              type="button"
               aria-label="View my curriculum vitae"
               onClick={() => setShowCV(true)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  setShowCV(true);
-                }
-              }}
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="relative w-52 h-52 sm:w-72 sm:h-72 lg:w-[22rem] lg:h-[22rem] flex flex-col items-center justify-center z-10 cursor-pointer group"
+              className="relative w-52 h-52 sm:w-72 sm:h-72 lg:w-[22rem] lg:h-[22rem] flex flex-col items-center justify-center z-10 cursor-pointer group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background rounded-full"
             >
               {/* Glow Behind Picture */}
               <div className="absolute inset-0 rounded-full bg-primary/20 group-hover:bg-primary/40 blur-[2rem] group-hover:blur-[3rem] opacity-60 group-hover:opacity-100 transition-all duration-500"></div>
@@ -131,7 +124,7 @@ export function Hero() {
                   className="object-cover object-[100%_top]"
                 />
               </div>
-            </motion.div>
+            </motion.button>
 
           </div>
         </FadeIn>

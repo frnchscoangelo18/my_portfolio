@@ -9,6 +9,9 @@ export const LenisProvider = ({ children }: { children: React.ReactNode }) => {
   const [lenis, setLenis] = useState<Lenis | null>(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
     const lenisInstance = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
