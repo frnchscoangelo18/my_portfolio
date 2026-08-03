@@ -2,51 +2,84 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ThemeToggle } from "./ThemeToggle";
+import dynamic from "next/dynamic";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
+
+const CommandPalette = dynamic(
+  () => import("@/components/ui/CommandPalette").then((mod) => mod.CommandPalette),
+  { ssr: false }
+);
+
+const CVModal = dynamic(
+  () => import("@/components/ui/CVModal").then((mod) => mod.CVModal),
+  { ssr: false }
+);
 import { 
   Menu, X, Home, User, Briefcase, 
   Code2, LayoutGrid, Award, Mail 
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { useScrollSpy } from "../../hooks/useScrollSpy";
+import { useScrollSpy } from "@/hooks/useScrollSpy";
+import { useLenis } from "@/hooks/useLenis";
 
+const NAV_LINKS = [
+  { name: "Home", href: "#hero", icon: Home },
+  { name: "About", href: "#about", icon: User },
+  { name: "Experience", href: "#experience", icon: Briefcase },
+  { name: "Skills", href: "#skills", icon: Code2 },
+  { name: "Projects", href: "#projects", icon: LayoutGrid },
+  { name: "Certificates", href: "#certificates", icon: Award },
+  { name: "Contact", href: "#contact", icon: Mail },
+];
+
+const SECTION_IDS = NAV_LINKS.map((link) => link.href);
+
+/**
+ * Floating Navigation Bar component for desktop and mobile layouts.
+ *
+ * Features:
+ * - Active section tracking with scroll position via `useScrollSpy`
+ * - Smooth section scrolling integrated with Lenis smooth scroll engine
+ * - Responsive mobile drawer navigation with smooth spring/fade animations
+ * - Dynamic backdrop blur and glassmorphism style on page scroll
+ * - Integrated theme mode switcher (`ThemeToggle`)
+ * - Global `Cmd+K` / `Ctrl+K` keyboard shortcut handler for launching `CommandPalette`
+ */
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isCmdPaletteOpen, setIsCmdPaletteOpen] = useState(false);
+  const [isCVModalOpen, setIsCVModalOpen] = useState(false);
+  const lenis = useLenis();
 
-  const navLinks = [
-    { name: "Home", href: "#hero", icon: Home },
-    { name: "About", href: "#about", icon: User },
-    { name: "Experience", href: "#experience", icon: Briefcase },
-    { name: "Skills", href: "#skills", icon: Code2 },
-    { name: "Projects", href: "#projects", icon: LayoutGrid },
-    { name: "Certificates", href: "#certificates", icon: Award },
-    { name: "Contact", href: "#contact", icon: Mail },
-  ];
-
-  const activeSection = useScrollSpy(
-    navLinks.map((link) => link.href),
-    150
-  );
+  const activeSection = useScrollSpy(SECTION_IDS, 150);
 
   useEffect(() => {
     const handleWindowScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleWindowScroll);
+    window.addEventListener("scroll", handleWindowScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleWindowScroll);
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsCmdPaletteOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
-    // If it's a hash link, prevent default and smoothly scroll to it
     if (href.startsWith("#")) {
       e.preventDefault();
       const targetId = href.substring(1);
       const elem = document.getElementById(targetId);
       if (elem) {
-        const lenis = (window as any).lenis;
         if (lenis) {
-          // Adjust duration here for a slower scroll (e.g. 2.5 seconds)
           lenis.scrollTo(elem, { duration: 2.5, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
         } else {
           elem.scrollIntoView({ behavior: "smooth" });
@@ -66,15 +99,15 @@ export function Navbar() {
             : "bg-background/20 backdrop-blur-sm border-transparent"
         }`}
       >
-        <nav className="flex items-center gap-1 text-sm font-medium relative">
-          {navLinks.map((link) => {
+        <nav role="navigation" aria-label="Main navigation" className="flex items-center gap-1 text-sm font-medium relative">
+          {NAV_LINKS.map((link) => {
             const isActive = activeSection === link.href;
             return (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`relative px-4 py-2 rounded-full transition-all duration-300 flex items-center justify-center gap-1.5 ${
+                className={`relative px-4 py-2 rounded-full transition-all duration-300 flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                   isActive 
                     ? "text-primary font-bold drop-shadow-[0_0_12px_rgba(56,189,248,0.8)] scale-105" 
                     : "text-muted-foreground hover:text-foreground hover:scale-105"
@@ -95,6 +128,7 @@ export function Navbar() {
             );
           })}
         </nav>
+        
         <div className="ml-4 pl-4 border-l border-border/50">
           <ThemeToggle />
         </div>
@@ -103,16 +137,16 @@ export function Navbar() {
       {/* Mobile Floating Header */}
       <div className="md:hidden fixed top-4 left-4 right-4 z-50">
         <header className="flex items-center justify-between h-14 px-1 transition-all duration-300">
-          {/* Menu button on the left (replacing logo) */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-foreground hover:text-primary transition-colors focus:outline-none flex items-center justify-center"
+            className="text-foreground hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg flex items-center justify-center p-2"
             aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
           
-          {/* Theme toggle on the right */}
           <div className="flex items-center">
             <ThemeToggle />
           </div>
@@ -120,12 +154,13 @@ export function Navbar() {
 
         {/* Mobile Menu Dropdown */}
         <div
+          id="mobile-menu"
           className={`overflow-hidden transition-all duration-300 ease-in-out absolute top-2 left-10 w-60 rounded-2xl bg-white/10 dark:bg-black/20 backdrop-blur-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.15)] border origin-top-left ${
             isMobileMenuOpen ? "max-h-[500px] py-4 opacity-100 border-white/20 dark:border-white/10 scale-100" : "max-h-0 opacity-0 py-0 border-transparent scale-95 pointer-events-none"
           }`}
         >
-          <nav className="flex flex-col gap-1 px-3">
-            {navLinks.map((link) => (
+          <nav role="navigation" aria-label="Mobile navigation" className="flex flex-col gap-1 px-3">
+            {NAV_LINKS.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
@@ -146,6 +181,17 @@ export function Navbar() {
           </nav>
         </div>
       </div>
+
+      <CommandPalette
+        isOpen={isCmdPaletteOpen}
+        onClose={() => setIsCmdPaletteOpen(false)}
+        onOpenCV={() => setIsCVModalOpen(true)}
+      />
+
+      <CVModal
+        isOpen={isCVModalOpen}
+        onClose={() => setIsCVModalOpen(false)}
+      />
     </>
   );
 }

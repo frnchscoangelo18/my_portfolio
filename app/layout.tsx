@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, Outfit, Silkscreen } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "../components/ui/ThemeProvider";
-import { Navbar } from "../components/ui/Navbar";
-import { Footer } from "../components/ui/Footer";
-import { SmoothScroll } from "../components/ui/SmoothScroll";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import { Navbar } from "@/components/ui/Navbar";
+import { Footer } from "@/components/ui/Footer";
+import { SmoothScroll } from "@/components/ui/SmoothScroll";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -58,16 +58,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html
+    <html
       lang="en"
       suppressHydrationWarning
       className={`${inter.variable} ${outfit.variable} ${pixelFont.variable} antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-background text-foreground">
+        <a 
+          href="#main-content" 
+          className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:bg-background focus:text-foreground focus:border focus:border-border focus:rounded-md focus:shadow-md font-medium"
+        >
+          Skip to Content
+        </a>
         <SmoothScroll>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <Navbar />
-            <main className="flex-1">
+            <main id="main-content" className="flex-1">
               {children}
             </main>
             <Footer />

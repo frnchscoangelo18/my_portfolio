@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/*
+ * Z-Index Scale:
+ * -50: Background gradient orbs (page.tsx)
+ * -40: Particle canvas (ParticleBackground)
+ * -10: Section decorative backgrounds
+ *  10: Content with relative positioning
+ *  20: Overlays within components
+ *  50: Fixed navigation, modals
+ */
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
@@ -73,3 +83,12 @@ body {
 ::view-transition-new(root) {
   z-index: 2;
 }
+
+/* Global Accessible Focus Rings */
+@layer base {
+  *:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}
+

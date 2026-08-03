@@ -25,11 +25,8 @@ export function ParticleBackground() {
       radius: 150
     };
 
-    // Determine colors based on theme. We default to light if not resolved yet.
     const isDark = resolvedTheme === "dark";
-    // Using a nice blue tint that matches your primary color
     const particleColor = isDark ? "rgba(14, 165, 233, 0.4)" : "rgba(14, 165, 233, 0.3)";
-    const lineColor = isDark ? "rgba(14, 165, 233, 0.15)" : "rgba(14, 165, 233, 0.1)";
 
     const resize = () => {
       width = window.innerWidth;
@@ -39,7 +36,7 @@ export function ParticleBackground() {
       initParticles();
     };
 
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", resize, { passive: true });
 
     const onMouseMove = (e: MouseEvent) => {
       mouse.x = e.clientX;
@@ -51,26 +48,21 @@ export function ParticleBackground() {
       mouse.y = -1000;
     };
 
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseleave", onMouseLeave);
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("mouseleave", onMouseLeave, { passive: true });
 
     class Particle {
       x: number;
       y: number;
       size: number;
-      baseX: number;
-      baseY: number;
       density: number;
       velocity: { x: number; y: number };
 
       constructor() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.baseX = this.x;
-        this.baseY = this.y;
         this.size = Math.random() * 2 + 1;
         this.density = (Math.random() * 30) + 1;
-        // Add a slow constant movement so they aren't completely static
         this.velocity = {
           x: (Math.random() - 0.5) * 0.5,
           y: (Math.random() - 0.5) * 0.5
@@ -87,23 +79,19 @@ export function ParticleBackground() {
       }
 
       update() {
-        // Continuous slow floating movement
         this.x += this.velocity.x;
         this.y += this.velocity.y;
 
-        // Bounce off edges smoothly
         if (this.x < 0 || this.x > width) this.velocity.x *= -1;
         if (this.y < 0 || this.y > height) this.velocity.y *= -1;
 
-        // Mouse interaction (repel effect)
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < mouse.radius) {
+        if (distance < mouse.radius && distance > 0) {
           const forceDirectionX = dx / distance;
           const forceDirectionY = dy / distance;
-          
           const force = (mouse.radius - distance) / mouse.radius;
           
           const directionX = forceDirectionX * force * this.density;
@@ -117,7 +105,6 @@ export function ParticleBackground() {
 
     const initParticles = () => {
       particles = [];
-      // Adjust density calculation so it doesn't get too crowded on huge screens
       const numberOfParticles = Math.min((width * height) / 12000, 150); 
       for (let i = 0; i < numberOfParticles; i++) {
         particles.push(new Particle());
@@ -132,7 +119,6 @@ export function ParticleBackground() {
         particles[i].update();
         particles[i].draw();
         
-        // Connect particles with lines
         for (let j = i; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
@@ -140,7 +126,6 @@ export function ParticleBackground() {
           
           if (distance < 120) {
             ctx.beginPath();
-            // Opacity of line depends on distance
             const opacity = 1 - (distance / 120);
             ctx.strokeStyle = isDark 
               ? `rgba(14, 165, 233, ${opacity * 0.25})`
@@ -156,6 +141,16 @@ export function ParticleBackground() {
       animationFrameId = requestAnimationFrame(animate);
     };
 
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationFrameId);
+      } else {
+        animate();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     resize();
     animate();
 
@@ -163,6 +158,7 @@ export function ParticleBackground() {
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseleave", onMouseLeave);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, [resolvedTheme]);
@@ -172,6 +168,7 @@ export function ParticleBackground() {
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-[-40]"
       style={{ opacity: 1 }}
+      aria-hidden="true"
     />
   );
 }

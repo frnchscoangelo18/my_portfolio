@@ -1,52 +1,55 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useEffect, useState } from "react";
+import { Typewriter } from "@/components/ui/Typewriter";
 
 export function HeroTitle() {
-  const [step, setStep] = useState(0);
-  const [text1, setText1] = useState("");
-  const [text2, setText2] = useState("");
-  const [text3, setText3] = useState("");
-  
-  const fullText1 = "Franchesco Angelo Angeles!";
-  const fullText2 = "Computer Engineering";
-  const fullText3 = "Student";
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => 
+    typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false
+  );
+  const [showCursor, setShowCursor] = useState(() => prefersReducedMotion);
 
   useEffect(() => {
-    // Add a small initial delay before starting the typing animation
-    const initialDelay = setTimeout(() => {
-      if (step === 0) {
-        if (text1.length < fullText1.length) {
-          setTimeout(() => setText1(fullText1.slice(0, text1.length + 1)), 60);
-        } else {
-          setTimeout(() => setStep(1), 200); // pause before next line
-        }
-      } else if (step === 1) {
-        if (text2.length < fullText2.length) {
-          setTimeout(() => setText2(fullText2.slice(0, text2.length + 1)), 60);
-        } else {
-          setTimeout(() => setStep(2), 200);
-        }
-      } else if (step === 2) {
-        if (text3.length < fullText3.length) {
-          setTimeout(() => setText3(fullText3.slice(0, text3.length + 1)), 60);
-        } else {
-          setStep(3); // done
-        }
-      }
-    }, step === 0 && text1.length === 0 ? 500 : 0);
-    
-    return () => clearTimeout(initialDelay);
-  }, [step, text1, text2, text3]);
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    let timer: NodeJS.Timeout | null = null;
+    if (!mediaQuery.matches) {
+      // Show cursor after typing completes (~4s for all 3 lines)
+      timer = setTimeout(() => setShowCursor(true), 4000);
+    }
+
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener("change", handler);
+
+    return () => {
+      if (timer) clearTimeout(timer);
+      mediaQuery.removeEventListener("change", handler);
+    };
+  }, []);
+
+  if (prefersReducedMotion) {
+    return (
+      <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-[1.3] font-pixel min-h-[60px] sm:min-h-[100px] lg:min-h-[140px]">
+        Franchesco Angelo Angeles! <br className="hidden sm:block"/>
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-blue-500 to-sky-600 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500">
+          Computer Engineering
+        </span>
+        <br/>
+        Student
+        <span className="inline-block w-[0.6em] h-[0.1em] ml-2 mb-2 bg-primary animate-pulse"></span>
+      </h1>
+    );
+  }
 
   return (
-    <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.3] font-pixel min-h-[80px] sm:min-h-[120px] lg:min-h-[160px]">
-      {text1} <br className="hidden sm:block"/>
+    <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-[1.3] font-pixel min-h-[60px] sm:min-h-[100px] lg:min-h-[140px]">
+      <Typewriter text="Franchesco Angelo Angeles!" delay={0.5} speed={60} showCursor={false} /> <br className="hidden sm:block"/>
       <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 via-blue-500 to-sky-600 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500">
-        {text2}
+        <Typewriter text="Computer Engineering" delay={2.2} speed={60} showCursor={false} />
       </span>
-      {text2.length > 0 && <br/>}
-      {text3}
-      <span className={`inline-block w-[0.6em] h-[0.1em] ml-2 mb-2 bg-primary ${step === 3 ? "animate-pulse" : ""}`}></span>
+      <br/>
+      <Typewriter text="Student" delay={3.5} speed={60} showCursor={false} />
+      <span className={`inline-block w-[0.6em] h-[0.1em] ml-2 mb-2 bg-primary ${showCursor ? "animate-pulse" : "opacity-0"}`}></span>
     </h1>
   );
 }

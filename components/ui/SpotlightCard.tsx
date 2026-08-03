@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-interface SpotlightCardProps {
+interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
   spotlightColor?: string;
@@ -12,7 +12,9 @@ interface SpotlightCardProps {
 export function SpotlightCard({
   children,
   className = "",
-  spotlightColor = "rgba(14, 165, 233, 0.15)", // Default sky-500 with low opacity
+  spotlightColor = "rgba(56, 189, 248, 0.25)", // Brighter sky-400 glow
+  onClick,
+  ...rest
 }: SpotlightCardProps) {
   const divRef = useRef<HTMLDivElement>(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -49,12 +51,14 @@ export function SpotlightCard({
   return (
     <div
       ref={divRef}
+      onClick={onClick}
       onMouseMove={handleMouseMove}
       onFocus={handleFocus}
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative overflow-hidden rounded-2xl bg-white/5 dark:bg-neutral-900/40 backdrop-blur-3xl border border-border/40 dark:border-white/10 shadow-lg transition-colors hover:border-primary/50 group ${className}`}
+      {...rest}
+      className={`relative overflow-hidden rounded-2xl bg-white/5 dark:bg-neutral-900/50 backdrop-blur-3xl border border-border/40 dark:border-white/15 shadow-lg transition-all duration-500 hover:border-primary/80 hover:shadow-[0_0_30px_rgba(56,189,248,0.25)] group ${className}`}
     >
       {/* Dynamic spotlight for desktop (mouse tracking) */}
       <motion.div

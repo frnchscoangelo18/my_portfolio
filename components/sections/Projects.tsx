@@ -1,36 +1,16 @@
-import { ExternalLink, Code } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { ExternalLink, Code, Info } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { FadeIn } from "../ui/FadeIn";
 import { SpotlightCard } from "../ui/SpotlightCard";
+import { ProjectModal } from "../ui/ProjectModal";
+import { projects, Project } from "@/data/projects";
 
 export function Projects() {
-  const placeholderProjects = [
-    {
-      title: "HEXNODE",
-      description: "Interactive visualizers for common data structures and algorithms (Stack, Queue, Binary Tree, Binary Search Tree, Fibonacci, Factorial, Tower of Hanoi).",
-      tags: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-      github: "https://github.com/frnchscoangelo18/HEXNODE",
-      demo: "https://hexnode-gamma.vercel.app",
-      image: "/hexnode.png", 
-    },
-    {
-      title: "ICPEP Booth Games 2026",
-      description: "Interactive web application for the ICPEP Booth Games event.",
-      tags: ["React", "Next.js", "TypeScript", "Tailwind CSS","Supabase"],
-      github: "https://github.com/frnchscoangelo18/icpep-booth-games-2026",
-      demo: "https://icpep-booth-games-2026.vercel.app",
-      image: "/icpep.png", 
-    },
-    {
-      title: "Dragonfly",
-      description: "An AI-powered, mobile-first sourcing assistant designed to turn messy hardware ideas into ready-to-buy reality.",
-      tags: ["React", "Next.js", "TypeScript", "Tailwind CSS","Supabase"],
-      github: "https://github.com/frnchscoangelo18/dragonfly",
-      demo: "https://dragonfly-rose.vercel.app",
-      image: "/dragonfly.png", 
-    },
-  ];
+  const [activeProjectModal, setActiveProjectModal] = useState<Project | null>(null);
 
   return (
     <section id="projects" className="py-10 md:py-20">
@@ -39,25 +19,26 @@ export function Projects() {
           <div className="flex flex-col items-center justify-center text-center mb-12">
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground font-pixel">Featured Projects</h2>
             <p className="mt-4 sm:mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-              A selection of projects I've built or am currently working on. Each project represents a unique challenge and a step forward in my software engineering journey.
+              A curated selection of projects demonstrating full-stack web development, AI integration, and real-time interactive systems. Select any card to view detailed architecture and key features.
             </p>
           </div>
         </FadeIn>
 
+        {/* Projects Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-           {placeholderProjects.map((project, index) => (
-            <FadeIn key={index} direction="up" delay={0.2 + index * 0.1} fullWidth>
-              <SpotlightCard className="h-full flex flex-col group">
-                
+          {projects.map((project, index) => (
+            <FadeIn key={project.title} direction="up" delay={0.2 + index * 0.1} fullWidth>
+              <SpotlightCard className="h-full flex flex-col group cursor-pointer" onClick={() => setActiveProjectModal(project)}>
                 {/* Project Image Area */}
                 <div className="w-full h-52 bg-gradient-to-br from-white/10 to-transparent dark:from-white/5 dark:to-transparent border-b border-border/30 flex items-center justify-center relative overflow-hidden backdrop-blur-md">
                   <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors z-10 pointer-events-none"></div>
-                  
+
                   {project.image ? (
                     <Image 
                       src={project.image} 
                       alt={`${project.title} screenshot`}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                   ) : (
@@ -66,10 +47,14 @@ export function Projects() {
                 </div>
                 
                 <div className="flex flex-col flex-1 p-5 sm:p-6 md:p-8">
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3 text-foreground transition-colors group-hover:text-primary">
-                    {project.title}
-                  </h3>
-                  <p className="text-muted-foreground text-base leading-relaxed mb-6 flex-1">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground transition-colors group-hover:text-primary">
+                      {project.title}
+                    </h3>
+                    <Info className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </div>
+
+                  <p className="text-muted-foreground text-base leading-relaxed mb-6 flex-1 line-clamp-3">
                     {project.description}
                   </p>
                   
@@ -81,12 +66,13 @@ export function Projects() {
                     ))}
                   </div>
                   
-                  <div className="flex items-center gap-6 mt-auto pt-6 border-t border-border/50">
+                  <div className="flex items-center gap-6 mt-auto pt-6 border-t border-border/50 z-20" onClick={(e) => e.stopPropagation()}>
                     <Link 
                       href={project.github} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex items-center text-sm font-semibold text-muted-foreground hover:text-primary transition-colors"
+                      aria-label={`View source code for ${project.title}`}
+                      className="flex items-center text-sm font-semibold text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
                     >
                       <Code className="w-4 h-4 mr-2" />
                       Code
@@ -95,7 +81,8 @@ export function Projects() {
                       href={project.demo} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex items-center text-sm font-semibold text-muted-foreground hover:text-primary transition-colors"
+                      aria-label={`View live demo for ${project.title}`}
+                      className="flex items-center text-sm font-semibold text-muted-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
                     >
                       <ExternalLink className="w-4 h-4 mr-2" />
                       Live Demo
@@ -107,6 +94,11 @@ export function Projects() {
           ))}
         </div>
       </div>
+
+      <ProjectModal
+        project={activeProjectModal}
+        onClose={() => setActiveProjectModal(null)}
+      />
     </section>
   );
 }
